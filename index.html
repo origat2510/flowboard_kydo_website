@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kydo | Flowboard — ציוד אימון שמעטר את הבית</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===========================================
+       RESET & ROOT
+    =========================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Reduced motion — accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Focus styles — keyboard navigation */
+    :focus-visible {
+      outline: 2.5px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Icon sprite helper */
+    .icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .icon-sm { width: 18px; height: 18px; }
+    .icon-lg { width: 28px; height: 28px; }
+
+    :root {
+      --bg:           #E8F5F8;   /* תכלת שמיים בהיר */
+      --bg-alt:       #D8EDF2;   /* תכלת עמוק יותר */
+      --card:         #FFFFFF;
+      --card-2:       #F0F8FC;
+      --dark:         #030A15;   /* נשאר כהה לhero/CTA/footer */
+      --dark-2:       #050E1C;
+      --text:         #0C1C30;   /* טקסט כהה על רקע בהיר */
+      --muted:        #4A6580;
+      --accent:       #0E47A1;
+      --accent-hov:   #0A3480;
+      --accent-lt:    #2D70E8;   /* לסקשנים כהים */
+      --border:       #B4D4E4;
+      --white:        #FFFFFF;
+      --r:            12px;
+      --sh:           0 4px 24px rgba(14,71,161,0.08);
+      --sh-lg:        0 16px 56px rgba(14,71,161,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; }
+
+    /* ===========================================
+       TYPOGRAPHY HELPERS
+    =========================================== */
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+    }
+    /* eyebrow on dark section backgrounds */
+    #hero .eyebrow, #cta .eyebrow { color: var(--accent-lt); }
+
+    .section-title {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.14;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    /* ===========================================
+       LAYOUT
+    =========================================== */
+    .container {
+      max-width: 1100px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    section { padding: 5.5rem 0; }
+
+    /* ===========================================
+       BUTTONS
+    =========================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.85rem 1.85rem;
+      border-radius: 8px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      border: 2px solid transparent;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+      line-height: 1;
+      min-height: 44px;
+    }
+    .btn-primary { background: var(--accent); color: var(--white); }
+    .btn-primary:hover {
+      background: var(--accent-hov);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(45,112,232,0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.35);
+    }
+    .btn-outline:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.08);
+    }
+    .btn-white { background: var(--white); color: var(--dark); display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-white:hover {
+      background: #E8F0FF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .btn-lg { padding: 1.05rem 2.5rem; font-size: 1.05rem; }
+    .btn-sm { padding: 0.58rem 1.15rem; font-size: 0.87rem; border-radius: 7px; }
+
+    /* ===========================================
+       NAVBAR
+    =========================================== */
+    #navbar {
+      position: fixed;
+      top: 0; inset-inline: 0;
+      z-index: 100;
+      padding: 0.72rem 0;
+      background: rgba(232,245,248,0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(232,245,248,0.95);
+      box-shadow: 0 1px 0 rgba(14,71,161,0.1), 0 2px 12px rgba(14,71,161,0.08);
+    }
+    #navbar .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: 0.5rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); font-weight: 600; }
+
+    /* ===========================================
+       MOBILE MENU
+    =========================================== */
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      min-height: 44px;
+      min-width: 44px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      padding: 0;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .menu-btn:hover { background: rgba(14,71,161,0.08); }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s;
+    }
+    .mobile-menu.open { opacity: 1; visibility: visible; }
+
+    .menu-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      inset-inline-end: 1.25rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      min-height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .menu-close-btn:hover { background: rgba(14,71,161,0.08); }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .mobile-nav-links a {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      min-height: 52px;
+      padding-inline: 1rem;
+      transition: color 0.2s;
+    }
+    .mobile-nav-links a:hover { color: var(--accent); }
+
+    /* ===========================================
+       HERO — full-width background image
+    =========================================== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 6rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/hero-bg.png');
+      background-size: cover;
+      background-position: center center;
+    }
+
+    /* Gradient overlay — dark at bottom for text readability, transparent at top */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(6,16,30,0.96) 0%,
+        rgba(6,16,30,0.55) 38%,
+        rgba(6,16,30,0.1)  100%
+      );
+    }
+
+    /* Fallback if image not yet loaded */
+    .hero-bg-fallback {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #06101E 0%, #0E2040 50%, #06101E 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 1.4rem;
+    }
+    .hero-content h1 em {
+      font-style: normal;
+      color: var(--white);
+    }
+
+    .hero-sub {
+      font-size: 1.12rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+    .hero-sub strong { color: var(--white); font-weight: 600; }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      max-width: 500px;
+      margin-inline: auto;
+    }
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent-lt);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.25rem;
+    }
+
+    /* ===========================================
+       LIFESTYLE SPLIT — two full-width panels
+    =========================================== */
+    #lifestyle { padding: 0; }
+
+    .lifestyle-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 70vh;
+      min-height: 420px;
+    }
+
+    .lifestyle-panel {
+      position: relative;
+      overflow: hidden;
+    }
+    .lifestyle-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+    .lifestyle-panel:hover img {
+      transform: scale(1.05);
+    }
+    .lifestyle-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(6,16,30,0.78) 0%,
+        rgba(6,16,30,0.15) 55%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+
+    .lifestyle-label {
+      position: absolute;
+      bottom: 2.2rem;
+      right: 2rem;
+      z-index: 1;
+      color: var(--white);
+    }
+    .lifestyle-label h3 {
+      font-size: 1.9rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .lifestyle-label p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.72);
+      margin-top: 0.3rem;
+    }
+
+    .lifestyle-divider {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: rgba(255,255,255,0.12);
+      z-index: 2;
+    }
+
+    /* ===========================================
+       CONCEPT — Z-Pattern Editorial
+    =========================================== */
+    #concept { background: var(--bg-alt); padding: 5.5rem 0 0; }
+
+    .concept-header {
+      text-align: center;
+      max-width: 600px;
+      margin-inline: auto;
+      margin-bottom: 3.5rem;
+    }
+    .concept-header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-top: 0.8rem;
+    }
+
+    .concept-z-wrap {
+      border-top: 1px solid var(--border);
+    }
+
+    .concept-z-row {
+      display: grid;
+      align-items: stretch;
+    }
+    .concept-z-row:first-of-type {
+      grid-template-columns: 55fr 45fr;
+    }
+    .concept-z-row:last-of-type {
+      grid-template-columns: 45fr 55fr;
+      border-top: 1px solid var(--border);
+    }
+
+    .concept-z-img {
+      height: 480px;
+      overflow: hidden;
+    }
+    .concept-z-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .concept-z-row:hover .concept-z-img img { transform: scale(1.04); }
+    }
+
+    .concept-z-body {
+      padding: 3rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .concept-z-body h3 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+    }
+    .concept-z-body p {
+      font-size: 0.91rem;
+      line-height: 1.72;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .check-list {
+      list-style: none;
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.58rem;
+    }
+    .check-list li {
+      font-size: 0.88rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      color: var(--muted);
+    }
+    .check-list li::before {
+      content: '✓';
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      color: var(--accent);
+    }
+
+    /* ===========================================
+       ABOUT
+    =========================================== */
+    #about { background: var(--bg); }
+
+    .about-lead {
+      text-align: center;
+      max-width: 680px;
+      margin-inline: auto;
+      margin-bottom: 3rem;
+    }
+    .about-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      line-height: 1.78;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .about-feat {
+      background: var(--card);
+      border-radius: var(--r);
+      padding: 1.75rem 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .feat-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.1rem;
+      background: rgba(14,71,161,0.08);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+    .feat-icon svg { width: 24px; height: 24px; }
+
+    .about-feat h4 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .about-feat p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    /* ===========================================
+       GALLERY
+    =========================================== */
+    #gallery { background: var(--bg-alt); text-align: center; }
+
+    .gallery-header { margin-bottom: 3.5rem; }
+    .gallery-header p { color: var(--muted); font-size: 1.05rem; margin-top: 0.8rem; }
+
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      text-align: right;
+    }
+
+    .design-card {
+      background: var(--card);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--sh);
+      border: 1px solid var(--border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    }
+    .design-card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--sh-lg);
+      border-color: rgba(45,112,232,0.35);
+    }
+
+    .design-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: var(--bg-alt);
+    }
+    .design-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 0.75rem;
+      transition: transform 0.4s ease;
+    }
+    .design-card:hover .design-img img { transform: scale(1.04); }
+
+    .design-body { padding: 1.5rem; }
+
+    .design-name {
+      font-size: 1.22rem;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+      color: var(--text);
+    }
+    .design-tagline { font-size: 0.83rem; color: var(--muted); margin-bottom: 1.2rem; }
+
+    .design-footer { display: flex; justify-content: space-between; align-items: center; }
+
+    .design-price {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .design-price small {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 0.18rem;
+    }
+
+    /* ===========================================
+       IN THE BOX
+    =========================================== */
+    #inbox { background: var(--bg); }
+
+    .inbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+      align-items: start;
+    }
+    .inbox-sub {
+      color: var(--muted);
+      font-size: 0.93rem;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .box-items { display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .box-item { display: flex; gap: 1.1rem; align-items: flex-start; }
+
+    .box-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(14,71,161,0.08);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .box-info h4 { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.18rem; color: var(--text); }
+    .box-info p  { font-size: 0.81rem; color: var(--muted); line-height: 1.5; }
+
+    .specs-wrap h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--text); }
+
+    .specs-table {
+      border-radius: var(--r);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .spec-row { display: flex; border-bottom: 1px solid var(--border); }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-k, .spec-v { padding: 0.72rem 1.1rem; font-size: 0.87rem; }
+    .spec-k {
+      flex: 0 0 44%;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--card);
+    }
+    .spec-v { flex: 1; background: var(--card-2); color: var(--text); }
+
+    /* ===========================================
+       CTA
+    =========================================== */
+    #cta {
+      background: var(--dark);
+      color: var(--white);
+      text-align: center;
+      padding: 7rem 0;
+      border-top: 1px solid var(--border);
+    }
+    #cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.13;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    #cta > .container > p {
+      color: rgba(255,255,255,0.55);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      max-width: 460px;
+      margin-inline: auto;
+    }
+
+    .cta-designs {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .cta-chip {
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.68);
+      padding: 0.58rem 1.4rem;
+      border-radius: 99px;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Heebo', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.22s;
+    }
+    .cta-chip:hover, .cta-chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+
+    .cta-actions { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .cta-fine { font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+
+    .payment-notice {
+      margin-top: 2.8rem;
+      padding: 1.1rem 1.8rem;
+      border: 1px dashed rgba(255,255,255,0.14);
+      border-radius: var(--r);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.32);
+      max-width: 480px;
+      margin-inline: auto;
+      line-height: 1.6;
+    }
+
+    /* ===========================================
+       FOOTER
+    =========================================== */
+    footer {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 1.8rem 0;
+    }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+
+    /* ===========================================
+       STORY
+    =========================================== */
+    #story { background: var(--bg-alt); padding: 0; }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 580px;
+    }
+
+    .story-text {
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .story-text h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.025em;
+      margin-bottom: 2rem;
+    }
+
+    .story-text p {
+      font-size: 0.97rem;
+      color: var(--muted);
+      line-height: 1.82;
+      margin-bottom: 1.25rem;
+    }
+    .story-text p:last-child { margin-bottom: 0; }
+
+    .story-text p strong { color: var(--accent); font-weight: 700; }
+
+    .story-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .story-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ===========================================
+       KPI STRIP
+    =========================================== */
+    #kpi-strip {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1.75rem 0;
+    }
+    .kpi-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .kpi-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: right;
+    }
+    .kpi-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(45,112,232,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-lt);
+      flex-shrink: 0;
+    }
+    .kpi-num {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+    }
+    .kpi-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.15rem;
+    }
+
+    /* ===========================================
+       RESPONSIVE
+    =========================================== */
+
+    /* --- Tablet: 768px–1099px --- */
+    @media (min-width: 768px) and (max-width: 1099px) {
+      section { padding: 4.5rem 0; }
+      .concept-z-row:first-of-type,
+      .concept-z-row:last-of-type { grid-template-columns: 1fr 1fr; }
+      .concept-z-img { height: 380px; }
+      .concept-z-body { padding: 2.5rem 2.5rem; }
+      .kpi-grid { gap: 2rem; }
+    }
+
+    /* --- Mobile: < 768px --- */
+    @media (max-width: 767px) {
+      .hero-content h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+      .hero-stats { gap: 2rem; }
+
+      .lifestyle-split { grid-template-columns: 1fr; height: auto; }
+      .lifestyle-panel { height: 55vw; min-height: 260px; }
+      .lifestyle-divider { display: none; }
+
+      section { padding: 3.5rem 0; }
+      #concept { padding: 3.5rem 0 0; }
+      .concept-z-row { display: block; }
+      .concept-z-img { height: 42vw; min-height: 240px; }
+      .concept-z-body { padding: 2rem 1.5rem; }
+
+      .about-features { grid-template-columns: repeat(2, 1fr); }
+
+      .designs-grid {
+        grid-template-columns: 1fr;
+        max-width: 360px;
+        margin-inline: auto;
+      }
+
+      .story-grid { grid-template-columns: 1fr; }
+      .story-text { padding: 3rem 1.5rem; }
+      .story-img { min-height: 320px; order: -1; }
+
+      .inbox-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      #navbar .nav-links { display: none; }
+      #navbar .btn { display: none; }
+      .menu-btn { display: flex; }
+
+      .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+      .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+      .kpi-item { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.35rem; }
+      .kpi-num { font-size: 0.85rem; }
+      .kpi-label { font-size: 0.75rem; }
+      .kpi-icon { width: 32px; height: 32px; border-radius: 8px; }
+      .kpi-icon svg { width: 16px; height: 16px; }
+    }
+
+    /* --- Small Mobile: < 480px --- */
+    @media (max-width: 479px) {
+      section { padding: 2.5rem 0; }
+      #concept { padding: 2.5rem 0 0; }
+      .hero-stats { flex-direction: column; align-items: center; gap: 1rem; }
+      .stat-num { font-size: 1.3rem; }
+      .logo img { height: 36px; }
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); gap: 0.35rem; }
+      .kpi-item { gap: 0.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo"><img src="images/website_logo.png" alt="kydo" width="160" height="80" /></a>
+    <ul class="nav-links">
+      <li><a href="#concept">הקונספט</a></li>
+      <li><a href="#gallery">עיצובים</a></li>
+      <li><a href="#inbox">מה בקופסה</a></li>
+    </ul>
+    <a href="#cta" class="btn btn-primary btn-sm">להזמנה</a>
+    <button id="menu-toggle" class="menu-btn" aria-label="פתח תפריט" aria-expanded="false">
+      <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     MOBILE MENU OVERLAY
+============================================================ -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="תפריט ניווט" aria-hidden="true">
+  <button id="menu-close" class="menu-close-btn" aria-label="סגור תפריט">
+    <svg class="icon icon-lg" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+  <nav>
+    <ul class="mobile-nav-links">
+      <li><a href="#concept">הקונספט</a></li>
+      <li><a href="#gallery">עיצובים</a></li>
+      <li><a href="#inbox">מה בקופסה</a></li>
+      <li><a href="#story">הסיפור שלנו</a></li>
+    </ul>
+    <a href="#cta" class="btn btn-primary btn-lg">להזמנה עכשיו</a>
+  </nav>
+</div>
+
+
+<!-- ============================================================
+     HERO — full-width background image
+============================================================ -->
+<section id="hero">
+  <!-- TODO: שמרו תמונת האישה על ההר בנתיב: images/hero-bg.jpg -->
+  <div class="hero-bg-fallback"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-content">
+    <span class="eyebrow">Flowboard by kydo</span>
+    <h1>
+      אמנות על הקיר.<br>
+      <em>אימון בסלון.</em>
+    </h1>
+    <p class="hero-sub">
+      ה-Flowboard משלב אימון שיווי משקל מעולה עם עיצוב שמשדרג את החלל.
+      מגיע עם מתלה ייעודי לתלייה נוחה ומרשימה.
+    </p>
+    <div class="hero-actions">
+      <a href="#gallery" class="btn btn-primary btn-lg">לבחירת עיצוב</a>
+      <a href="#concept" class="btn btn-outline btn-lg">גלו איך זה עובד</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">עיצובים לבחירה</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">120 ק״ג</div>
+        <div class="stat-label">כושר נשיאה</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">מתלה קיר</div>
+        <div class="stat-label">כלול בכל מארז</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     KPI STRIP — trust signals below hero
+============================================================ -->
+<section id="kpi-strip">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi-item">
+        <div class="kpi-icon">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+        </div>
+        <div>
+          <div class="kpi-num">120 ק״ג</div>
+          <div class="kpi-label">כושר נשיאה</div>
+        </div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-icon">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div>
+          <div class="kpi-num">3 עיצובים</div>
+          <div class="kpi-label">לבחירה</div>
+        </div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-icon">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+        </div>
+        <div>
+          <div class="kpi-num">מתלה קיר</div>
+          <div class="kpi-label">כלול בכל מארז</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     LIFESTYLE SPLIT — אימון | אמנות
+     TODO:
+       תמונה שמאל (אימון):  images/action-grass.jpg  ← בורד על הדשא
+       תמונה ימין (קיר):    images/wall-art.jpg       ← הגל על הקיר העץ
+============================================================ -->
+<section id="lifestyle">
+  <div class="lifestyle-split">
+    <div class="lifestyle-panel">
+      <img src="images/action-mountain.jpg" alt="אימון עם הFlowboard" loading="lazy" style="object-position: center 80%;" />
+      <div class="lifestyle-label">
+        <h3>תתאמנו.</h3>
+        <p>בבית, בחוץ, בכל זמן.</p>
+      </div>
+    </div>
+    <div class="lifestyle-divider"></div>
+    <div class="lifestyle-panel">
+      <img src="images/hanging-wall.jpg" alt="Flowboard כתמונת קיר" loading="lazy" />
+      <div class="lifestyle-label">
+        <h3>תלו על הקיר.</h3>
+        <p>בסיום האימון — תמונה.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONCEPT
+============================================================ -->
+<section id="concept">
+  <div class="container">
+    <div class="concept-header">
+      <span class="eyebrow">הרעיון</span>
+      <h2 class="section-title">שני מוצרים. מחיר אחד.</h2>
+      <p>ציוד כושר שרוב האנשים מסתירים בארון — הFlowboard תוכנן לתלות על הקיר.</p>
+    </div>
+  </div>
+  <div class="concept-z-wrap">
+
+    <!-- Row 1: image right (55%) | text left (45%) in RTL -->
+    <div class="concept-z-row">
+      <div class="concept-z-img">
+        <img src="images/concept-training.jpg" alt="אימון עם הFlowboard" loading="lazy" style="object-position: center top;" />
+      </div>
+      <div class="concept-z-body">
+        <h3>ציוד אימון רציני</h3>
+        <p>הלוח מאתגר את שרירי השיווי משקל, הייצוב והליבה — בדיוק כמו כל בלאנס בורד מקצועי. עמד עליו שלוש דקות ותרגישו את זה למחרת.</p>
+        <ul class="check-list">
+          <li>שיפור שיווי משקל וקואורדינציה</li>
+          <li>חיזוק שרירי ליבה ועמוד שדרה</li>
+          <li>מתאים למתחילים ולמתקדמים כאחד</li>
+          <li>גליל שעם כלול בקופסה</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Row 2: text right (45%) | image left (55%) in RTL -->
+    <div class="concept-z-row">
+      <div class="concept-z-body">
+        <h3>תמונת קיר לבית</h3>
+        <p>הדפס UV באיכות גבוהה, ומתלה קיר ייעודי. תלו אותו בין אימונים — ותקבלו יצירת אמנות שמשתלבת בכל חדר בבית.</p>
+        <ul class="check-list">
+          <li>3 עיצובים אמנותיים לבחירה</li>
+          <li>הדפסת UV עמידה, ללא דהייה לאורך שנים</li>
+          <li>מתלה קיר מפלדה ייעודי כלול</li>
+          <li>מתאים לסלון, חדר שינה, חדר כושר</li>
+        </ul>
+      </div>
+      <div class="concept-z-img">
+        <img src="images/concept-wall.jpg" alt="Flowboard על הקיר" loading="lazy" style="object-position: center 15%;" />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="about-lead">
+      <span class="eyebrow">על המוצר</span>
+      <h2 class="section-title">הFlowboard</h2>
+      <p class="about-desc">
+        השילוב המושלם בין אימון גופני לעיצוב הבית.
+        לא רק מכשיר כושר — פריט נוי שמוסיף סטייל לחיים שלכם.
+      </p>
+    </div>
+    <div class="about-features">
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- dumbbell / strength -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 4v16M18 4v16M4 8h4M16 8h4M4 16h4M16 16h4M8 12h8"/>
+          </svg>
+        </div>
+        <h4>חיזוק הגוף</h4>
+        <p>כלי תרגול מעולה לחיזוק הגוף, הקואורדינציה ושיווי המשקל. האימון מחזק את שרירי הליבה והיציבה, עוזר לשיפור הריכוז ותורם לביטחון העצמי — בצורה מהנה ואפקטיבית.</p>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- shield / safety -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <h4>בטיחות מקסימלית</h4>
+        <p>הבורד תוכנן תוך דגש על בטיחות מקסימלית וחומרים עמידים, כדי שתוכלו להתאמן בראש שקט ובביטחון מלא — בלי פשרות על האיכות.</p>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- picture frame / wall art -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </div>
+        <h4>פריט נוי לבית</h4>
+        <p>בסיום האימון פשוט תולים אותו על הקיר. הבורד מגיע עם גליל ומתלה קיר מעוצב, כולל שני דיבלים ושני ברגים להתקנה פשוטה וקלה.</p>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- compass / anytime anywhere -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+          </svg>
+        </div>
+        <h4>בכל זמן ומקום</h4>
+        <p>אפשר לתרגל בבית או בחוץ בכל זמן שתרצו, בלי התארגנות מסובכת ובלי מאמץ לוגיסטי. פשוט מורידים, עומדים, מתאמנים.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     GALLERY
+============================================================ -->
+<section id="gallery">
+  <div class="container">
+    <div class="gallery-header">
+      <span class="eyebrow">בחרו את הסגנון</span>
+      <h2 class="section-title">איזה בורד מתאים לקיר שלכם?</h2>
+      <p>שלושה שילובים של צבע ואנרגיה, תבחרו את מה שמשתלב מושלם בבית.</p>
+    </div>
+    <div class="designs-grid">
+
+      <div class="design-card">
+        <div class="design-img">
+          <img src="images/pink-lotus.jpg" alt="Flowboard — לוטוס ורוד" loading="lazy" />
+        </div>
+        <div class="design-body">
+          <h3 class="design-name">לוטוס ורוד</h3>
+          <p class="design-tagline">שלווה, חום, ויופי עדין.</p>
+          <div class="design-footer">
+            <div class="design-price">₪490<small>כולל מע״מ + מתלה</small></div>
+            <a href="#cta" class="btn btn-primary btn-sm" data-design="לוטוס ורוד">בחרו עיצוב זה</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="design-card">
+        <div class="design-img">
+          <img src="images/wave.jpg" alt="Flowboard — הגל הגדול" loading="lazy" />
+        </div>
+        <div class="design-body">
+          <h3 class="design-name">הגל הגדול</h3>
+          <p class="design-tagline">הוקוסאי. כוח עתיק, אמנות קלאסית.</p>
+          <div class="design-footer">
+            <div class="design-price">₪490<small>כולל מע״מ + מתלה</small></div>
+            <a href="#cta" class="btn btn-primary btn-sm" data-design="הגל הגדול">בחרו עיצוב זה</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="design-card">
+        <div class="design-img">
+          <img src="images/white-lotus.jpg" alt="Flowboard — לוטוס לבן" loading="lazy" />
+        </div>
+        <div class="design-body">
+          <h3 class="design-name">לוטוס לבן</h3>
+          <p class="design-tagline">טוהר, רוגע, ואור רך.</p>
+          <div class="design-footer">
+            <div class="design-price">₪490<small>כולל מע״מ + מתלה</small></div>
+            <a href="#cta" class="btn btn-primary btn-sm" data-design="לוטוס לבן">בחרו עיצוב זה</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     IN THE BOX
+============================================================ -->
+<section id="inbox">
+  <div class="container">
+    <div class="inbox-grid">
+      <div>
+        <span class="eyebrow">מה מגיע אליכם</span>
+        <h2 class="section-title" style="margin-bottom:0.5rem;">בתוך הקופסה</h2>
+        <p class="inbox-sub">הכל כלול — פותחים, מרכיבים, מתחילים.</p>
+        <div class="box-items">
+          <div class="box-item">
+            <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg></div>
+            <div class="box-info">
+              <h4>לוח Flowboard</h4>
+              <p>עץ לבוד מבוקר עם הדפס UV בחדות גבוהה. הלוח שבחרתם בגלריה — מגיע מוכן לשימוש.</p>
+            </div>
+          </div>
+          <div class="box-item">
+            <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/></svg></div>
+            <div class="box-info">
+              <h4>גליל שעם</h4>
+              <p>גליל שעם טבעי שמניחים מתחת ללוח. יוצר את תנועת האיזון — המקור לכל האתגר.</p>
+            </div>
+          </div>
+          <div class="box-item">
+            <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg></div>
+            <div class="box-info">
+              <h4>מתלה קיר</h4>
+              <p>מתלה מפלדה מושחרת שמתקינים לקיר. מחזיק את הלוח בזווית ייצוגית — תמונה לכל דבר.</p>
+            </div>
+          </div>
+          <div class="box-item">
+            <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <div class="box-info">
+              <h4>ערכת התקנה + הוראות</h4>
+              <p>2 דיבלים ו-2 ברגים להתקנת המתלה, בתוספת הוראות פשוטות. הכל כלול — לא צריך לחפש שום דבר.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="specs-wrap">
+        <h3>מפרט טכני</h3>
+        <div class="specs-table">
+          <div class="spec-row"><div class="spec-k">מידות הלוח</div><div class="spec-v">80 × 30 ס"מ</div></div>
+          <div class="spec-row"><div class="spec-k">עובי</div><div class="spec-v">1.5 ס"מ</div></div>
+          <div class="spec-row"><div class="spec-k">חומר</div><div class="spec-v">עץ לבוד ביח מבוקר</div></div>
+          <div class="spec-row"><div class="spec-k">קיבולת משקל</div><div class="spec-v">עד 120 ק"ג</div></div>
+          <div class="spec-row"><div class="spec-k">הדפסה</div><div class="spec-v">UV גבוה-רזולוציה, עמידה לאורך זמן</div></div>
+          <div class="spec-row"><div class="spec-k">גליל</div><div class="spec-v">שעם טבעי, קוטר 9 ס"מ</div></div>
+          <div class="spec-row"><div class="spec-k">מתלה קיר</div><div class="spec-v">פלדה מושחרת, תומך עד 15 ק"ג</div></div>
+          <div class="spec-row"><div class="spec-k">משקל כולל</div><div class="spec-v">כ-3.2 ק"ג</div></div>
+          <div class="spec-row"><div class="spec-k">אריזה</div><div class="spec-v">קרטון מחוזק + מילוי הגנה</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     STORY — הסיפור שלנו
+     TODO: שמרו את תמונת הצוות בנתיב: images/team.jpg
+============================================================ -->
+<section id="story">
+  <div class="story-grid">
+
+    <!-- טקסט — ימין (RTL) -->
+    <div class="story-text">
+      <span class="eyebrow">קצת עלינו</span>
+      <h2>הסיפור שלנו</h2>
+      <p>
+        אנחנו תומר ואורי, שני אחים שחיים ונושמים ספורט ותנועה. כגולשים, תמיד חיפשנו דרך להתאמן ולחזק את הליבה והשיווי משקל גם כשאנחנו מחוץ למים, והפתרון הטבעי היה באלאנס בורד. אבל מהר מאוד גילינו שרוב הלוחות בשוק פשוטים ומכוערים — וכשציוד נזרק למחסן, הוא פשוט מפסיק להיות בשימוש.
+      </p>
+      <p>
+        הבנו שכדי ליצור הרגל אימון אמיתי, המוצר חייב להיות זמין, נגיש — ובעיקר <strong>כזה שכיף לראות.</strong>
+      </p>
+      <p>
+        ככה נולד Flowboard — באלאנס בורד איכותי בעיצוב אמנותי מרהיב, כזה שלא מחביאים במחסן אלא גאים לתלות על הקיר בסלון. מוצר שנולד מהים אבל מיועד לכל בית ולכל אדם שרוצה להכניס יותר תנועה, כושר וכיף לשגרה היומית שלו.
+      </p>
+    </div>
+
+    <!-- תמונה — שמאל (RTL) -->
+    <div class="story-img">
+      <img src="images/team.jpg" alt="תומר ואורי — מייסדי kydo" loading="lazy" />
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CTA
+============================================================ -->
+<section id="cta">
+  <div class="container">
+    <span class="eyebrow">הזמינו עכשיו</span>
+    <h2>מוכנים לשדרג<br>את האימון והבית?</h2>
+    <p>בחרו את העיצוב שמדבר אליכם — ונדאג לכל השאר.</p>
+    <div class="cta-designs">
+      <button class="cta-chip active" data-design="לוטוס ורוד"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg> לוטוס ורוד</button>
+      <button class="cta-chip" data-design="הגל הגדול"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 7.5C5.25 6 6.75 4.5 9 4.5s3.75 1.5 5.25 3 3 3 5.25 3M3.75 13.5c1.5-1.5 3-3 5.25-3s3.75 1.5 5.25 3 3 3 5.25 3"/></svg> הגל הגדול</button>
+      <button class="cta-chip" data-design="לוטוס לבן"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg> לוטוס לבן</button>
+    </div>
+    <div class="cta-actions">
+      <!--
+        TODO: החליפו כפתור זה בקישור Stripe / Shopify לאחר שתחליטו על מערכת התשלום.
+              עדכנו את מספר הטלפון: החליפו 972XXXXXXXXX במספר שלכם.
+      -->
+      <a href="https://wa.me/972XXXXXXXXX?text=היי%2C+אני+רוצה+להזמין+Flowboard+בעיצוב+לוטוס+ורוד"
+         id="whatsapp-btn"
+         class="btn btn-white btn-lg"
+         target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+        להזמנה בוואטסאפ
+      </a>
+      <p class="cta-fine">נחזור אליכם תוך שעה · משלוח בכל הארץ</p>
+    </div>
+    <div class="payment-notice">
+      <svg class="icon icon-sm" aria-hidden="true" style="vertical-align:middle;margin-inline-end:0.4rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>מערכת רכישה מאובטחת בדרך.
+      בינתיים ניתן להזמין ישירות בוואטסאפ וקבלת אישור תוך שעה.
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="container footer-inner">
+    <a href="#" class="logo"><img src="images/website_logo.png" alt="kydo" width="160" height="80" /></a>
+    <p>© 2024 kydo. כל הזכויות שמורות.</p>
+  </div>
+</footer>
+
+
+<script>
+  // ── Nav scroll ────────────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── Smooth scroll ─────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      const target = id === '#' ? document.body : document.querySelector(id);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // ── CTA chip selection ────────────────────────────────────
+  const chips  = document.querySelectorAll('.cta-chip');
+  const waBtn  = document.getElementById('whatsapp-btn');
+  const waBase = 'https://wa.me/972XXXXXXXXX?text=';
+
+  function selectDesign(name) {
+    chips.forEach(c => c.classList.toggle('active', c.dataset.design === name));
+    waBtn.href = waBase + encodeURIComponent(`היי, אני רוצה להזמין Flowboard בעיצוב ${name}`);
+  }
+
+  chips.forEach(chip => chip.addEventListener('click', () => selectDesign(chip.dataset.design)));
+
+  document.querySelectorAll('.design-card .btn[data-design]').forEach(btn => {
+    btn.addEventListener('click', () => selectDesign(btn.dataset.design));
+  });
+
+  // ── Scroll-spy nav links ──────────────────────────────────
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const navHeight = navbar.offsetHeight;
+
+  const spyObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+          });
+        }
+      });
+    },
+    {
+      rootMargin: `-${navHeight + 8}px 0px -60% 0px`,
+      threshold: 0
+    }
+  );
+
+  document.querySelectorAll('section[id]').forEach(s => spyObserver.observe(s));
+
+  // ── Mobile menu ───────────────────────────────────────────
+  const menuToggle  = document.getElementById('menu-toggle');
+  const menuClose   = document.getElementById('menu-close');
+  const mobileMenu  = document.getElementById('mobile-menu');
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    menuClose.focus();
+  }
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    menuToggle.focus();
+  }
+
+  menuToggle.addEventListener('click', openMobileMenu);
+  menuClose.addEventListener('click', closeMobileMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu();
+  });
+</script>
+
+</body>
+</html>

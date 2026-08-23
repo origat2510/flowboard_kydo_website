@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Zip artifacts
+*.zip
+
+# Claude skills (local tooling, not part of the project)
+claud skills/
