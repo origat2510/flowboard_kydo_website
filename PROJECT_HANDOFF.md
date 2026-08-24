@@ -1,6 +1,6 @@
 # PROJECT_HANDOFF.md — kydo Flowboard Landing Page
 
-> **Last updated:** 2026-08-23  
+> **Last updated:** 2026-08-24  
 > **Repo:** https://github.com/origat2510/flowboard_kydo_website  
 > **Branch:** `main`  
 > **File to edit:** `index.html` (single-file — all HTML, CSS, and JS inline)
@@ -65,6 +65,31 @@
 - `prefers-reduced-motion` media query disables all transitions/animations globally
 - `:focus-visible` ring: `2.5px solid var(--accent)` on all interactive elements
 - `touch-action: manipulation` on all `.btn` and `.cta-chip` elements
+
+### Session 2 (2026-08-24) — Visual & Content Refinement ✅
+
+#### Header / Navigation
+- Navbar logo enlarged (`44px → 68px`) so it properly fills the bar
+- Added the missing `הסיפור שלנו` link to desktop nav (previously mobile-menu-only)
+- **`images/website_logo.png` optimized: 12,000×12,000px / 27MB → 300×300px / ~20KB** via `sips`, no visible quality loss. `width`/`height` HTML attributes corrected from the old (wrong) `160×80` to the real `300×300` 1:1 aspect ratio to prevent layout shift.
+
+#### Hero
+- Removed the redundant floating stats row (design count / weight capacity / hanger) that sat over the hero image — the dark `#kpi-strip` section below is now the single source of truth for those numbers, with its dead CSS (`.hero-stats`, `.stat-num`, `.stat-label` + responsive overrides) removed
+- Reduced `#hero` bottom padding (`6rem → 5rem`) to keep the hero-to-KPI-strip transition tight now that the stats row is gone
+
+#### Image framing (`object-position` tuning)
+- Lifestyle split: `action-mountain.jpg` (תתאמנו) and `hanging-wall.jpg` (תלו על הקיר) both re-cropped so the board is never cut off — hanging board settled on `center 45%` (shows both tip and tail)
+- Concept "2-in-1" section: swapped in new source photos (`images/training-new.jpg`, `images/wall-new.jpg`, replacing `concept-training.jpg` / `concept-wall.jpg`), each fine-tuned with its own `object-position` (`center 80%` for the roller shot, `center top` for the wall shot)
+
+#### Typography
+- Concept card titles/body/checklist sized up (title `1.45rem→2rem`, body `0.91rem→1.125rem`, checklist `0.88rem→1.05rem`, tighter padding) — previous sizing felt sparse inside the card
+
+#### Content fixes
+- Wall hanger material corrected from steel (`פלדה מושחרת`) to wood (`עץ איכותי`) in all 3 places: concept checklist, "in the box" description, specs table
+- **Fixed a real bug:** `images/pink-lotus.jpg` and `images/white-lotus.jpg` had their content swapped relative to their filenames (the "pink" file is visually white, and vice versa). Rather than rename the assets, the on-page title/tagline/alt text for both gallery cards was corrected to match what's actually pictured — left card ("לוטוס ורוד") now correctly shows the pink flower, right card ("לוטוס לבן") the white one. **Filenames themselves are still swapped** — see Sprint 2 below.
+- All 3 product prices updated: **₪490 → ₪390**
+
+All changes are committed (`de5599f`) and pushed to `origin/main`.
 
 ---
 
@@ -175,14 +200,17 @@ Use `class="icon icon-sm"` for 18px or `class="icon icon-lg"` for 28px.
 - Remove the `<div class="payment-notice">` placeholder once real payment is live
 
 #### S2-3 — Image Optimization
-- Convert all JPG/PNG photos to **WebP** (target: 60–80% size reduction)
-  - Priority order: `hero-bg.png` (LCP), `action-mountain.jpg`, `concept-training.jpg`, `concept-wall.jpg`
-- Add `width` and `height` attributes to all `<img>` tags (prevents CLS)
+- `images/website_logo.png` done ✅ (2026-08-24: 27MB → ~20KB, see Session 2 notes above)
+- Still pending: convert remaining JPG/PNG photos to **WebP** (target: 60–80% size reduction)
+  - Priority order: `hero-bg.png` (LCP), `action-mountain.jpg`, `training-new.jpg`, `wall-new.jpg`
+- Add `width` and `height` attributes to all remaining `<img>` tags (prevents CLS) — logo done, photos still pending
 - Add `fetchpriority="high"` to the hero background element
 - All below-fold images already have `loading="lazy"` ✅
+- Cleanup: `images/concept-training.jpg` and `images/concept-wall.jpg` are no longer referenced anywhere in `index.html` (replaced by `training-new.jpg` / `wall-new.jpg` on 2026-08-24) — safe to delete once confirmed unneeded
+- Also worth fixing: `images/pink-lotus.jpg` and `images/white-lotus.jpg` have their actual photo content swapped relative to their filenames (the on-page copy was corrected 2026-08-24, but the filenames themselves still lie — rename for clarity)
 
 #### S2-4 — Copy & Pricing Finalization
-- Confirm final price (currently hardcoded `₪490` in all 3 gallery cards)
+- Price finalized at **₪390** (updated from ₪490 on 2026-08-24) ✅
 - Finalize shipping copy ("משלוח בכל הארץ" — add estimated days if known)
 - Decide whether to add a "shipping cost" line to the gallery card or CTA section
 
@@ -199,9 +227,8 @@ Use `class="icon icon-sm"` for 18px or `class="icon icon-lg"` for 28px.
 - Place between KPI strip and lifestyle section, or between gallery and inbox
 - Use existing icon set: `icon-truck`, `icon-shield-check`, `icon-lock`, `icon-heart`
 
-#### S2-7 — Navbar "הסיפור שלנו" Link
-- The mobile menu includes `#story` but the desktop nav does not
-- Decide whether to add it to desktop nav (currently 3 links: concept, gallery, inbox)
+#### S2-7 — Navbar "הסיפור שלנו" Link ✅ Done (2026-08-24)
+- Added to desktop nav, now matches the mobile menu (4 links: concept, gallery, inbox, story)
 
 #### S2-8 — Accessibility TODOs (from design-system/MASTER.md)
 - Add `aria-label` to icon-only elements (the hamburger close button already has it ✅, verify others)
@@ -235,4 +262,4 @@ Before starting any new work, run through:
 
 ---
 
-*Generated at end of session 2026-08-23. Next session should pick up from Sprint 2 High Priority tasks above.*
+*Updated at end of session 2026-08-24 (visual/content refinement — see Session 2 notes in section 1). Next session should pick up from the remaining Sprint 2 High Priority tasks above (WhatsApp number, payment integration, WebP conversion).*
