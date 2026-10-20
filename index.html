@@ -1037,14 +1037,11 @@
 
 <!-- ============================================================
      LIFESTYLE SPLIT — אימון | אמנות
-     TODO:
-       תמונה שמאל (אימון):  images/action-grass.jpg  ← בורד על הדשא
-       תמונה ימין (קיר):    images/wall-art.jpg       ← הגל על הקיר העץ
 ============================================================ -->
 <section id="lifestyle">
   <div class="lifestyle-split">
     <div class="lifestyle-panel">
-      <img src="images/action-mountain.jpg" alt="אימון עם הFlowboard" loading="lazy" style="object-position: center 85%;" />
+      <img src="images/training-new.jpg" alt="אימון עם הFlowboard" loading="lazy" style="object-position: center 85%;" />
       <div class="lifestyle-label">
         <h3>תתאמנו.</h3>
         <p>בבית, בחוץ, בכל זמן.</p>
@@ -1078,7 +1075,7 @@
     <!-- Row 1: image right (55%) | text left (45%) in RTL -->
     <div class="concept-z-row">
       <div class="concept-z-img">
-        <img src="images/training-new.jpg" alt="אימון עם הFlowboard" loading="lazy" style="object-position: center 80%;" />
+        <img src="images/action-mountain.jpg" alt="אימון עם הFlowboard" loading="lazy" style="object-position: center 80%;" />
       </div>
       <div class="concept-z-body">
         <h3>ציוד אימון רציני</h3>
@@ -1190,7 +1187,7 @@
 
       <div class="design-card">
         <div class="design-img">
-          <img src="images/pink-lotus.jpg" alt="Flowboard — לוטוס לבן" loading="lazy" />
+          <img src="images/white-lotus.jpg" alt="Flowboard — לוטוס לבן" loading="lazy" />
         </div>
         <div class="design-body">
           <h3 class="design-name">לוטוס לבן</h3>
@@ -1218,7 +1215,7 @@
 
       <div class="design-card">
         <div class="design-img">
-          <img src="images/white-lotus.jpg" alt="Flowboard — לוטוס ורוד" loading="lazy" />
+          <img src="images/pink-lotus.jpg" alt="Flowboard — לוטוס ורוד" loading="lazy" />
         </div>
         <div class="design-body">
           <h3 class="design-name">לוטוס ורוד</h3>
@@ -1342,9 +1339,8 @@
     <div class="cta-actions">
       <!--
         TODO: החליפו כפתור זה בקישור Stripe / Shopify לאחר שתחליטו על מערכת התשלום.
-              עדכנו את מספר הטלפון: החליפו 972XXXXXXXXX במספר שלכם.
       -->
-      <a href="https://wa.me/972XXXXXXXXX?text=היי%2C+אני+רוצה+להזמין+Flowboard+בעיצוב+לוטוס+ורוד"
+      <a href="https://wa.me/972525933432?text=היי%2C+אני+מעוניין+להזמין+את+ה-Flowboard+של+KYDO"
          id="whatsapp-btn"
          class="btn btn-white btn-lg"
          target="_blank" rel="noopener">
@@ -1389,13 +1385,17 @@
   });
 
   // ── CTA chip selection ────────────────────────────────────
-  const chips  = document.querySelectorAll('.cta-chip');
-  const waBtn  = document.getElementById('whatsapp-btn');
-  const waBase = 'https://wa.me/972XXXXXXXXX?text=';
+  const chips       = document.querySelectorAll('.cta-chip');
+  const waBtn       = document.getElementById('whatsapp-btn');
+  const waNumber    = '972525933432';
+  const waGenericMsg = 'היי, אני מעוניין להזמין את ה-Flowboard של KYDO';
+  const waBase      = `https://wa.me/${waNumber}?text=`;
+
+  waBtn.href = waBase + encodeURIComponent(waGenericMsg);
 
   function selectDesign(name) {
     chips.forEach(c => c.classList.toggle('active', c.dataset.design === name));
-    waBtn.href = waBase + encodeURIComponent(`היי, אני רוצה להזמין Flowboard בעיצוב ${name}`);
+    waBtn.href = waBase + encodeURIComponent(`${waGenericMsg} בעיצוב ${name}`);
   }
 
   chips.forEach(chip => chip.addEventListener('click', () => selectDesign(chip.dataset.design)));
