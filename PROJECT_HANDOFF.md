@@ -1,6 +1,6 @@
 # PROJECT_HANDOFF.md — kydo Flowboard Landing Page
 
-> **Last updated:** 2026-08-24  
+> **Last updated:** 2026-10-26  
 > **Repo:** https://github.com/origat2510/flowboard_kydo_website  
 > **Branch:** `main`  
 > **File to edit:** `index.html` (single-file — all HTML, CSS, and JS inline)
@@ -90,6 +90,19 @@
 - All 3 product prices updated: **₪490 → ₪390**
 
 All changes are committed (`de5599f`) and pushed to `origin/main`.
+
+### Session 4 (2026-10-26) — Pre-launch cleanup ✅
+
+Picked up from the Sprint 2 "High Priority" list (payment integration deferred — being handled separately).
+
+- **SEO / OG tags** — full set added to `<head>`: `meta description`, `canonical` (placeholder `href="/"` — **TODO: replace with the absolute production URL once the domain is confirmed, S2-11**), `og:type/site_name/title/description/image(+width/height)/locale`, `twitter:card/title/description/image`.
+- **WebP conversion** — all 9 content photos converted (originals kept in `images/` as source files, not referenced by the page anymore): `hero-bg` 29.5MB→339KB (−98.8%), `training-new` 4.4MB→804KB, `action-mountain` 1.8MB→232KB, `team` 1.0MB→336KB, others similarly reduced 64–88%. Oversized originals (hero-bg, action-mountain, training-new, team) were also downscaled to sane display dimensions (long edge 1600–2560px) before encoding — they were multiple times larger than any on-page container needs.
+- **CLS fix** — `width`/`height` attributes added to every remaining `<img>` (previously only the logo had them).
+- **LCP fix** — `<link rel="preload" as="image" href="images/hero-bg.webp" fetchpriority="high">` added to `<head>`. (Note: `fetchpriority` can't be set on a CSS `background-image` directly — the hero is a `div` with `background-image`, so preload is the correct mechanism here, not an `<img>` attribute.)
+- **Housekeeping** — removed two stale scaffolding `TODO` comments in the HTML that referenced since-replaced image paths (`hero-bg.jpg`, `team.jpg` placeholders).
+- **Verified already done** (discovered while reviewing, no action needed): the pink/white-lotus filename↔content swap (S2-3) and the orphaned `concept-training.jpg`/`concept-wall.jpg` cleanup (S2-3) were both already resolved in commit `0ddd66b`, after this handoff doc was last updated — the doc's wording below was stale.
+
+All changes committed locally; not yet pushed as of this note.
 
 ---
 
@@ -199,15 +212,14 @@ Use `class="icon icon-sm"` for 18px or `class="icon icon-lg"` for 28px.
 - If Shopify: embed a Buy Button widget in the CTA section
 - Remove the `<div class="payment-notice">` placeholder once real payment is live
 
-#### S2-3 — Image Optimization
-- `images/website_logo.png` done ✅ (2026-08-24: 27MB → ~20KB, see Session 2 notes above)
-- Still pending: convert remaining JPG/PNG photos to **WebP** (target: 60–80% size reduction)
-  - Priority order: `hero-bg.png` (LCP), `action-mountain.jpg`, `training-new.jpg`, `wall-new.jpg`
-- Add `width` and `height` attributes to all remaining `<img>` tags (prevents CLS) — logo done, photos still pending
-- Add `fetchpriority="high"` to the hero background element
+#### S2-3 — Image Optimization ✅ Done (2026-10-26)
+- `images/website_logo.png` done ✅ (2026-08-24: 27MB → ~20KB)
+- All content photos converted to **WebP** and wired into `index.html` ✅ (2026-10-26, see Session 4 notes above) — oversized originals downscaled first
+- `width`/`height` attributes added to all remaining `<img>` tags ✅ (2026-10-26)
+- `fetchpriority="high"` added via `<link rel="preload">` for the hero background ✅ (2026-10-26)
 - All below-fold images already have `loading="lazy"` ✅
-- Cleanup: `images/concept-training.jpg` and `images/concept-wall.jpg` are no longer referenced anywhere in `index.html` (replaced by `training-new.jpg` / `wall-new.jpg` on 2026-08-24) — safe to delete once confirmed unneeded
-- Also worth fixing: `images/pink-lotus.jpg` and `images/white-lotus.jpg` have their actual photo content swapped relative to their filenames (the on-page copy was corrected 2026-08-24, but the filenames themselves still lie — rename for clarity)
+- `images/concept-training.jpg` and `images/concept-wall.jpg` — already deleted in commit `0ddd66b` ✅
+- `images/pink-lotus.jpg` / `images/white-lotus.jpg` filename↔content swap — already fixed in commit `0ddd66b` ✅ (content was physically swapped between the two files so filenames now match what's pictured)
 
 #### S2-4 — Copy & Pricing Finalization
 - Price finalized at **₪390** (updated from ₪490 on 2026-08-24) ✅
@@ -240,10 +252,9 @@ Use `class="icon icon-sm"` for 18px or `class="icon icon-lg"` for 28px.
 - Add Google Analytics 4 or Plausible snippet in `<head>`
 - Track: CTA chip clicks (design selection), WhatsApp button clicks, scroll depth
 
-#### S2-10 — OG / SEO Meta Tags
-- Add `<meta property="og:title">`, `og:description`, `og:image` for social sharing
-- Add `<meta name="description">` for search engines
-- Set canonical URL once domain is confirmed
+#### S2-10 — OG / SEO Meta Tags ✅ Done (2026-10-26)
+- `og:title`, `og:description`, `og:image` (+ dimensions), `og:type/site_name/locale`, Twitter card tags, and `meta description` all added
+- `canonical` tag added with a placeholder `href="/"` — **still needs the real absolute URL once the domain is confirmed** (blocked on S2-11)
 
 #### S2-11 — Domain & Hosting
 - Options: GitHub Pages (free, just enable in repo settings), Netlify (drag-and-drop deploy), Cloudflare Pages
