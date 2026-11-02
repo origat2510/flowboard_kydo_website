@@ -477,7 +477,8 @@
       height: 480px;
       overflow: hidden;
     }
-    .concept-z-img img {
+    .concept-z-img img,
+    .concept-z-img video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -486,7 +487,8 @@
       transition: transform 0.7s ease;
     }
     @media (prefers-reduced-motion: no-preference) {
-      .concept-z-row:hover .concept-z-img img { transform: scale(1.04); }
+      .concept-z-row:hover .concept-z-img img,
+      .concept-z-row:hover .concept-z-img video { transform: scale(1.04); }
     }
 
     .concept-z-body {
@@ -840,6 +842,30 @@
     }
 
     /* ===========================================
+       BRAND VIDEO — wide cinematic strip below hero
+    =========================================== */
+    #brand-video {
+      background: var(--dark);
+      padding: 3rem 0;
+    }
+    .brand-video-wrap {
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--sh-lg);
+      aspect-ratio: 16 / 9;
+    }
+    .brand-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    @media (max-width: 767px) {
+      #brand-video { padding: 2rem 0; }
+      .brand-video-wrap { aspect-ratio: 4 / 5; border-radius: calc(var(--r) - 2px); }
+    }
+
+    /* ===========================================
        KPI STRIP
     =========================================== */
     #kpi-strip {
@@ -1016,6 +1042,20 @@
 
 
 <!-- ============================================================
+     BRAND VIDEO — wide cinematic clip below hero (experiment)
+============================================================ -->
+<section id="brand-video">
+  <div class="container">
+    <div class="brand-video-wrap">
+      <video autoplay loop muted playsinline aria-hidden="true">
+        <source src="videos/brand-video.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
      KPI STRIP — trust signals below hero
 ============================================================ -->
 <section id="kpi-strip">
@@ -1093,7 +1133,9 @@
     <!-- Row 1: image right (55%) | text left (45%) in RTL -->
     <div class="concept-z-row">
       <div class="concept-z-img">
-        <img src="images/training-new.webp" alt="אימון עם הFlowboard" loading="lazy" width="1389" height="1800" style="object-position: center 80%;" />
+        <video autoplay loop muted playsinline aria-label="אימון עם הFlowboard" style="object-position: center 80%;">
+          <source src="videos/action-demo.mp4" type="video/mp4" />
+        </video>
       </div>
       <div class="concept-z-body">
         <h3>ציוד אימון מקצועי</h3>
@@ -1386,6 +1428,14 @@
 
 
 <script>
+  // ── Reduced motion: don't force autoplaying video on users who asked for less motion ──
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('video[autoplay]').forEach(v => {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
+  }
+
   // ── Nav scroll ────────────────────────────────────────────
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
