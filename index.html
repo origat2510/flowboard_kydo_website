@@ -930,17 +930,44 @@
 
     /* --- Mobile: < 768px --- */
     @media (max-width: 767px) {
-      .hero-content h1 { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+      /* -- Headings -- */
+      .hero-content h1 { font-size: clamp(1.625rem, 7vw, 1.875rem); }
+      .section-title,
+      .story-text h2,
+      #cta h2 { font-size: clamp(1.25rem, 6vw, 1.5rem); }
+      .concept-z-body h3 { font-size: 1.125rem; margin-bottom: 0.6rem; }
+      .story-text h2 { margin-bottom: 1.25rem; }
+      .design-name { font-size: 1.05rem; }
+      .specs-wrap h3 { font-size: 1rem; }
+
+      /* -- Paragraphs & running text -- */
+      .hero-sub { font-size: 0.9375rem; line-height: 1.65; }
+      .concept-z-body p { font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1.2rem; }
+      .about-desc { font-size: 0.9375rem; line-height: 1.6; }
+      .about-feat p { font-size: 0.875rem; }
+      .concept-header p { font-size: 0.9375rem; }
+      .gallery-header p { font-size: 0.9375rem; }
+      .design-tagline { font-size: 0.875rem; }
+      .box-info p { font-size: 0.875rem; }
+      #cta > .container > p { font-size: 0.9375rem; }
+      .story-text p { font-size: 0.9375rem; line-height: 1.65; }
+
+      /* -- Lists -- */
+      .check-list { gap: 0.5rem; }
+      .check-list li { font-size: 0.875rem; }
 
       .lifestyle-split { grid-template-columns: 1fr; height: auto; }
       .lifestyle-panel { height: 55vw; min-height: 260px; }
       .lifestyle-divider { display: none; }
 
-      section { padding: 3.5rem 0; }
-      #concept { padding: 3.5rem 0 0; }
+      /* -- Section / container spacing -- */
+      .container { padding-inline: 1.25rem; }
+      section { padding: 2.5rem 0; }
+      #concept { padding: 2.5rem 0 0; }
+      #cta { padding: 2.5rem 0; }
       .concept-z-row { display: block; }
       .concept-z-img { height: 42vw; min-height: 240px; }
-      .concept-z-body { padding: 2rem 1.5rem; }
+      .concept-z-body { padding: 1.75rem 1.25rem; }
 
       .about-features { grid-template-columns: repeat(2, 1fr); }
 
@@ -951,7 +978,7 @@
       }
 
       .story-grid { grid-template-columns: 1fr; }
-      .story-text { padding: 3rem 1.5rem; }
+      .story-text { padding: 2.5rem 1.25rem; }
       .story-img { min-height: 320px; order: -1; }
 
       .inbox-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -972,8 +999,15 @@
 
     /* --- Small Mobile: < 480px --- */
     @media (max-width: 479px) {
-      section { padding: 2.5rem 0; }
-      #concept { padding: 2.5rem 0 0; }
+      .hero-content h1 { font-size: 1.5rem; }
+      .section-title,
+      .story-text h2,
+      #cta h2 { font-size: 1.25rem; }
+
+      .container { padding-inline: 1rem; }
+      section { padding: 2rem 0; }
+      #concept { padding: 2rem 0 0; }
+      #cta { padding: 2rem 0; }
       .logo img { height: 36px; }
       .kpi-grid { grid-template-columns: repeat(3, 1fr); gap: 0.35rem; }
       .kpi-item { gap: 0.2rem; }
