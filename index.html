@@ -601,6 +601,8 @@
       text-align: right;
     }
 
+    .design-dots { display: none; }
+
     .design-card {
       background: var(--card);
       border-radius: var(--r);
@@ -972,10 +974,47 @@
       .about-features { grid-template-columns: repeat(2, 1fr); }
 
       .designs-grid {
-        grid-template-columns: 1fr;
-        max-width: 360px;
-        margin-inline: auto;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        margin-inline: -1.25rem;
+        padding-inline: 1.25rem;
+        padding-bottom: 1rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
       }
+      .designs-grid::-webkit-scrollbar { display: none; }
+      .design-card {
+        flex: 0 0 85vw;
+        scroll-snap-align: center;
+      }
+
+      .design-dots { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: -0.625rem; }
+      .design-dot {
+        position: relative;
+        width: 44px;
+        height: 44px;
+        border: none;
+        padding: 0;
+        background: transparent;
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .design-dot::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border);
+        transform: translate(-50%, -50%);
+        transition: background-color 0.22s ease, transform 0.22s ease;
+      }
+      .design-dot.active::before { background: var(--accent); transform: translate(-50%, -50%) scale(1.25); }
 
       .story-grid { grid-template-columns: 1fr; }
       .story-text { padding: 2.5rem 1.25rem; }
@@ -1010,6 +1049,7 @@
       #concept { padding: 2rem 0 0; }
       #cta { padding: 2rem 0; }
       .logo img { height: 36px; }
+      .designs-grid { margin-inline: -1rem; padding-inline: 1rem; }
       .kpi-grid { grid-template-columns: repeat(3, 1fr); gap: 0.35rem; }
       .kpi-item { gap: 0.2rem; }
     }
@@ -1327,6 +1367,11 @@
       </div>
 
     </div>
+    <div class="design-dots" role="tablist" aria-label="בחירת דגם מוצג">
+      <button class="design-dot active" type="button" aria-label="דגם 1 מתוך 3" aria-current="true"></button>
+      <button class="design-dot" type="button" aria-label="דגם 2 מתוך 3" aria-current="false"></button>
+      <button class="design-dot" type="button" aria-label="דגם 3 מתוך 3" aria-current="false"></button>
+    </div>
   </div>
 </section>
 
@@ -1473,6 +1518,40 @@
       v.removeAttribute('autoplay');
       v.pause();
     });
+  }
+
+  // ── Design carousel dots (mobile horizontal scroll-snap) ───
+  const designsGrid = document.querySelector('.designs-grid');
+  const designDots = document.querySelectorAll('.design-dot');
+  if (designsGrid && designDots.length) {
+    const designCards = designsGrid.querySelectorAll('.design-card');
+
+    designDots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        designCards[i].scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          inline: 'center',
+          block: 'nearest',
+        });
+      });
+    });
+
+    const setActiveDot = (index) => {
+      designDots.forEach((dot, i) => {
+        const isActive = i === index;
+        dot.classList.toggle('active', isActive);
+        dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+      });
+    };
+
+    const cardObserver = new IntersectionObserver((entries) => {
+      const mostVisible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (mostVisible) setActiveDot([...designCards].indexOf(mostVisible.target));
+    }, { root: designsGrid, threshold: [0.5, 0.75, 1] });
+
+    designCards.forEach(card => cardObserver.observe(card));
   }
 
   // ── Nav scroll ────────────────────────────────────────────
