@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מדיניות ביטולים וטופס ביטול עסקה | kydo</title>
+  <meta name="description" content="מדיניות ביטול עסקה של kydo בהתאם לחוק הגנת הצרכן, ותוכן מקוון לשליחת הודעת ביטול." />
+  <link rel="canonical" href="cancellation.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===========================================
+       RESET & ROOT
+    =========================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    :root {
+      --bg:           #E8F5F8;
+      --bg-alt:       #D8EDF2;
+      --card:         #FFFFFF;
+      --card-2:       #F0F8FC;
+      --dark:         #030A15;
+      --dark-2:       #050E1C;
+      --text:         #0C1C30;
+      --muted:        #4A6580;
+      --accent:       #0E47A1;
+      --accent-hov:   #0A3480;
+      --accent-lt:    #2D70E8;
+      --border:       #B4D4E4;
+      --white:        #FFFFFF;
+      --r:            12px;
+      --sh:           0 4px 24px rgba(14,71,161,0.08);
+      --sh-lg:        0 16px 56px rgba(14,71,161,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; }
+
+    .container {
+      max-width: 1100px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    /* ===========================================
+       BUTTONS
+    =========================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.85rem 1.85rem;
+      border-radius: 8px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      border: 2px solid transparent;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+      line-height: 1;
+      min-height: 44px;
+    }
+    .btn-primary { background: var(--accent); color: var(--white); }
+    .btn-primary:hover {
+      background: var(--accent-hov);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(45,112,232,0.4);
+    }
+    .btn-sm { padding: 0.58rem 1.15rem; font-size: 0.87rem; border-radius: 7px; }
+
+    /* ===========================================
+       PAGE HEADER
+    =========================================== */
+    #page-header {
+      position: fixed;
+      top: 0; inset-inline: 0;
+      z-index: 100;
+      padding: 0.72rem 0;
+      background: rgba(232,245,248,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(14,71,161,0.1), 0 2px 12px rgba(14,71,161,0.08);
+    }
+    #page-header .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { text-decoration: none; display: inline-flex; align-items: center; }
+    .logo img { height: 68px; width: auto; display: block; }
+
+    /* ===========================================
+       LEGAL CONTENT
+    =========================================== */
+    main { display: block; }
+    .legal-content {
+      max-width: 760px;
+      padding-block: 7rem 5.5rem;
+    }
+    .legal-content h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .legal-content .updated-date {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-bottom: 2.5rem;
+    }
+    .legal-content h2 {
+      font-size: 1.375rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .legal-content p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .legal-content ul, .legal-content ol {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      padding-inline-start: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .legal-content strong { color: var(--text); font-weight: 700; }
+    .legal-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .legal-content a:hover,
+    .legal-content a:focus-visible { color: var(--accent-hov); }
+
+    /* ===========================================
+       CANCELLATION FORM
+    =========================================== */
+    .legal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      max-width: 480px;
+      margin-top: 1.5rem;
+      padding: 1.75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      box-shadow: var(--sh);
+    }
+    .legal-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .legal-form .optional-tag { font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+    .legal-form input,
+    .legal-form textarea {
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      background: var(--white);
+      color: var(--text);
+      min-height: 44px;
+    }
+    .legal-form textarea { min-height: 100px; resize: vertical; }
+    .legal-form button[type="submit"] { align-self: flex-start; margin-top: 0.5rem; }
+    .legal-form .form-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: -0.25rem;
+    }
+
+    /* ===========================================
+       FOOTER
+    =========================================== */
+    footer {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 1.8rem 0;
+    }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+
+    .footer-legal {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      column-gap: 1.5rem;
+      row-gap: 0;
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-legal a:hover,
+    .footer-legal a:focus-visible { color: var(--accent-lt); }
+
+    /* ===========================================
+       MOBILE
+    =========================================== */
+    @media (max-width: 767px) {
+      .container { padding-inline: 1.25rem; }
+      .legal-content { padding-block: 5.5rem 3rem; }
+      .legal-content h1 { font-size: clamp(1.5rem, 7vw, 1.875rem); }
+      .legal-content h2 { font-size: 1.125rem; margin-top: 2rem; }
+      .legal-content p, .legal-content ul, .legal-content ol { font-size: 0.9375rem; }
+      .legal-form { max-width: 100%; padding: 1.25rem; }
+      .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .footer-legal { column-gap: 1rem; }
+    }
+    @media (max-width: 479px) {
+      .logo img { height: 36px; }
+      .container { padding-inline: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="page-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><img src="images/website_logo.png" alt="kydo — לוגו האתר" width="300" height="300" /></a>
+    <a href="index.html" class="btn btn-primary btn-sm">חזרה לדף הבית</a>
+  </div>
+</header>
+
+<main>
+  <div class="container legal-content">
+    <h1>מדיניות ביטולים וטופס ביטול עסקה</h1>
+    <p class="updated-date">עודכן לאחרונה: 6 בנובמבר 2026</p>
+
+    <h2>זכות ביטול עסקה</h2>
+    <p>
+      בהתאם לחוק הגנת הצרכן, התשמ״א-1981, ולתקנות הגנת הצרכן (ביטול עסקה), התשע״א-2010, רשאי
+      הלקוח לבטל את העסקה בתוך <strong>14 ימים</strong> מיום קבלת המוצר או מיום קבלת מסמך פרטי
+      העסקה — לפי המאוחר מביניהם.
+    </p>
+    <p>
+      לאוכלוסיות מוגנות על פי חוק — <strong>אנשים עם מוגבלות</strong>, <strong>אזרחים ותיקים</strong>
+      (מעל גיל 65) ו<strong>עולים חדשים</strong> (בתוך 5 שנים ממועד העלייה) — תקופת הביטול
+      מוארכת עד <strong>4 חודשים</strong> ממועד קבלת המוצר, בכפוף לכך שההתקשרות בעסקה כללה שיחה
+      עם נציג מטעם העסק (טלפונית, בדוא״ל וכדומה), ושהלקוח מציין כי הביטול הוא מחמת היותו נמנה
+      עם אחת האוכלוסיות המוגנות.
+    </p>
+
+    <h2>דמי ביטול</h2>
+    <p>
+      בוטלה העסקה שלא עקב פגם במוצר או אי-התאמה בינו לבין הפרטים שנמסרו ללקוח, רשאית kydo
+      לגבות דמי ביטול בשיעור שלא יעלה על <strong>5% ממחיר המוצר או 100 ₪ — לפי הנמוך מביניהם</strong>.
+    </p>
+    <p>
+      בוטלה העסקה עקב פגם במוצר, אי-התאמה, אי-אספקה במועד, או כל הפרה אחרת מצד החברה —
+      <strong>לא ייגבו דמי ביטול כלל</strong>, והחברה תשיב ללקוח את מלוא התמורה ששולמה.
+    </p>
+    <p>
+      החזר כספי יבוצע באותו אמצעי תשלום בו בוצעה ההזמנה, בתוך 14 ימי עסקים ממועד קבלת הודעת
+      הביטול.
+    </p>
+
+    <h2>אופן ביטול העסקה</h2>
+    <p>ניתן להודיע על ביטול עסקה באחת הדרכים הבאות:</p>
+    <ul>
+      <li>מילוי הטופס המקוון שבהמשך העמוד</li>
+      <li>פנייה בדוא״ל לכתובת <a href="mailto:Buyflowboard@gmail.com">Buyflowboard@gmail.com</a></li>
+      <li>פנייה טלפונית או בוואטסאפ למספר 052-5933432</li>
+    </ul>
+    <p>
+      מוצר שנרכש ומוחזר, יוחזר ככל הניתן באריזתו המקורית ובמצב תקין — אלא אם הביטול נובע מפגם
+      או מאי-התאמה.
+    </p>
+
+    <h2>טופס ביטול עסקה מקוון</h2>
+    <form id="cancel-form" class="legal-form" novalidate>
+      <p class="form-note">
+        מילוי הטופס ולחיצה על ״שליחת הודעת ביטול״ יפתחו הודעת דוא״ל מוכנה מראש לכתובת
+        Buyflowboard@gmail.com דרך תוכנת הדוא״ל שמוגדרת במכשירכם — יש לוודא את שליחתה בפועל.
+      </p>
+      <label>
+        שם מלא
+        <input type="text" name="full_name" autocomplete="name" required />
+      </label>
+      <label>
+        טלפון
+        <input type="tel" name="phone" autocomplete="tel" required />
+      </label>
+      <label>
+        דוא״ל
+        <input type="email" name="email" autocomplete="email" required />
+      </label>
+      <label>
+        מספר הזמנה ו/או תאריך הרכישה
+        <input type="text" name="order_ref" required />
+      </label>
+      <label>
+        סיבת הביטול <span class="optional-tag">(לא חובה)</span>
+        <textarea name="reason"></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">שליחת הודעת ביטול</button>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="index.html" class="logo"><img src="images/website_logo.png" alt="kydo — לוגו האתר" width="300" height="300" /></a>
+      <p>© 2026 kydo. כל הזכויות שמורות.</p>
+    </div>
+    <nav class="footer-legal" aria-label="קישורים משפטיים">
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <a href="terms.html">תקנון ותנאי שימוש</a>
+      <a href="privacy.html">מדיניות פרטיות</a>
+      <a href="cancellation.html">ביטול עסקה</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('cancel-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const fd = new FormData(this);
+    const name   = (fd.get('full_name') || '').trim();
+    const phone  = (fd.get('phone') || '').trim();
+    const email  = (fd.get('email') || '').trim();
+    const order  = (fd.get('order_ref') || '').trim();
+    const reason = (fd.get('reason') || '').trim() || 'לא צוינה';
+
+    const subject = `בקשת ביטול עסקה — ${name}`;
+    const body =
+      'שם מלא: ' + name + '\n' +
+      'טלפון: ' + phone + '\n' +
+      'דוא״ל: ' + email + '\n' +
+      'מספר הזמנה / תאריך רכישה: ' + order + '\n' +
+      'סיבת ביטול: ' + reason;
+
+    window.location.href =
+      'mailto:Buyflowboard@gmail.com?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+  });
+</script>
+
+</body>
+</html>

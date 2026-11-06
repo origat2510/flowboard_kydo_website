@@ -158,3 +158,30 @@ Before delivering any UI change:
   --sh-lg:      0 16px 56px rgba(14,71,161,0.15);
 }
 ```
+
+---
+
+## Legal & Compliance (Israel)
+
+This section defines the Israeli regulatory and accessibility baseline for every page on this site. It applies in addition to the Design Rules above — accessibility requirements here are the legal floor, not just UX polish.
+
+### 1. Directionality & Language — CRITICAL
+- Every HTML document's `<html>` tag must declare both: `<html lang="he" dir="rtl">`
+- Never rely on CSS `direction: rtl` alone as a substitute for the `dir` attribute — screen readers, form controls, and browser UI chrome (e.g. `<select>`, date pickers) key off the HTML attribute, not just the computed style
+- Any future additional page (not just `index.html`) must carry the same `lang="he" dir="rtl"` pair
+
+### 2. Accessibility — ת"י 5568 / WCAG 2.1 AA — CRITICAL
+Israel's Equal Rights for Persons with Disabilities regulations (תקנות נגישות השירות) adopt ת"י 5568, which is Israel's localization of WCAG 2.0/2.1 Level AA. Treat AA as the legal minimum, not an aspirational target.
+- Every `<img>` has a meaningful `alt` attribute **written in Hebrew**, describing the image's content/purpose — never a transliterated filename, never left empty unless the image is purely decorative (in which case use `alt=""` deliberately, not an omission)
+- Every icon-only interactive element (a button or link with no visible text label) has an `aria-label` in Hebrew describing its action (e.g. `aria-label="סגור תפריט"`, not `aria-label="Close"`)
+- Heading hierarchy is sequential on every page: `h1` → `h2` → `h3`, never skipping a level (e.g. `h2` straight to `h4`) and never more than one `h1` per page
+- Every interactive element has a visible `:focus-visible` state (already defined globally — see Design Rules §1) — never remove or suppress it with `outline: none` without supplying a replacement indicator
+- This builds on, and does not replace, Design Rule §1 (contrast ratios, color-not-as-sole-indicator, `prefers-reduced-motion`) and §2 (44×44px touch targets)
+
+### 3. E-commerce Legal Requirements — CRITICAL
+Baseline obligations under Israeli consumer-protection and e-commerce law (חוק הגנת הצרכן, תקנות הגנת הצרכן (ביטול עסקה), and the anti-spam provision of חוק התקשורת — "חוק הספאם"):
+- **Persistent footer, every page:** must include links to an accessibility statement (הצהרת נגישות), the site's terms (תקנון), a privacy policy (מדיניות פרטיות), and the right-of-cancellation / return policy (ביטול עסקה). These are not optional decoration — their absence is a compliance gap, not a design choice.
+- **Marketing opt-in checkboxes:** any checkbox for newsletter/SMS/marketing consent must default to **unchecked**. Never pre-check a marketing opt-in on behalf of the user — under חוק הספאם, consent must be an affirmative, un-coerced action.
+- **Currency display:** all prices are shown in New Israeli Shekels using the `₪` symbol (not `ILS`, not `NIS`, not a bare number) — consistent with how pricing already appears across `index.html` (e.g. `₪390`).
+
+**Current gap (as of this branch):** `index.html`'s `<footer>` does not yet contain accessibility/terms/privacy/cancellation links, and the site has no marketing opt-in checkbox at all. Implementing those pages/links is tracked as follow-up work, not covered by this document alone — this section defines the standard that work must meet when it lands.

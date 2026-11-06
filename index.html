@@ -796,6 +796,30 @@
     .footer-inner { display: flex; justify-content: space-between; align-items: center; }
     footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
 
+    .footer-legal {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      column-gap: 1.5rem;
+      row-gap: 0;
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-legal a:hover,
+    .footer-legal a:focus-visible { color: var(--accent-lt); }
+
     /* ===========================================
        STORY
     =========================================== */
@@ -1027,6 +1051,7 @@
       .menu-btn { display: flex; }
 
       .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .footer-legal { column-gap: 1rem; }
 
       #kpi-strip { padding: 0.5rem 0; }
       .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
@@ -1062,7 +1087,7 @@
 ============================================================ -->
 <nav id="navbar">
   <div class="container nav-inner">
-    <a href="#" class="logo"><img src="images/website_logo.png" alt="kydo" width="300" height="300" /></a>
+    <a href="#" class="logo"><img src="images/website_logo.png" alt="kydo — לוגו האתר" width="300" height="300" /></a>
     <ul class="nav-links">
       <li><a href="#concept">הקונספט</a></li>
       <li><a href="#gallery">עיצובים</a></li>
@@ -1504,9 +1529,17 @@
      FOOTER
 ============================================================ -->
 <footer>
-  <div class="container footer-inner">
-    <a href="#" class="logo"><img src="images/website_logo.png" alt="kydo" width="300" height="300" /></a>
-    <p>© 2024 kydo. כל הזכויות שמורות.</p>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="logo"><img src="images/website_logo.png" alt="kydo — לוגו האתר" width="300" height="300" /></a>
+      <p>© 2026 kydo. כל הזכויות שמורות.</p>
+    </div>
+    <nav class="footer-legal" aria-label="קישורים משפטיים">
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <a href="terms.html">תקנון ותנאי שימוש</a>
+      <a href="privacy.html">מדיניות פרטיות</a>
+      <a href="cancellation.html">ביטול עסקה</a>
+    </nav>
   </div>
 </footer>
 

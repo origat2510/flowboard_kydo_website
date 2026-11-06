@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מדיניות פרטיות ועוגיות | kydo</title>
+  <meta name="description" content="מדיניות הפרטיות והעוגיות של אתר kydo — אילו פרטים נאספים, שימוש בעוגיות, Meta Pixel ו-Google Analytics, ואבטחת פרטי תשלום." />
+  <link rel="canonical" href="privacy.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===========================================
+       RESET & ROOT
+    =========================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    :root {
+      --bg:           #E8F5F8;
+      --bg-alt:       #D8EDF2;
+      --card:         #FFFFFF;
+      --card-2:       #F0F8FC;
+      --dark:         #030A15;
+      --dark-2:       #050E1C;
+      --text:         #0C1C30;
+      --muted:        #4A6580;
+      --accent:       #0E47A1;
+      --accent-hov:   #0A3480;
+      --accent-lt:    #2D70E8;
+      --border:       #B4D4E4;
+      --white:        #FFFFFF;
+      --r:            12px;
+      --sh:           0 4px 24px rgba(14,71,161,0.08);
+      --sh-lg:        0 16px 56px rgba(14,71,161,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      direction: rtl;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; }
+
+    .container {
+      max-width: 1100px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    /* ===========================================
+       BUTTONS
+    =========================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.85rem 1.85rem;
+      border-radius: 8px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      border: 2px solid transparent;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+      line-height: 1;
+      min-height: 44px;
+    }
+    .btn-primary { background: var(--accent); color: var(--white); }
+    .btn-primary:hover {
+      background: var(--accent-hov);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(45,112,232,0.4);
+    }
+    .btn-sm { padding: 0.58rem 1.15rem; font-size: 0.87rem; border-radius: 7px; }
+
+    /* ===========================================
+       PAGE HEADER
+    =========================================== */
+    #page-header {
+      position: fixed;
+      top: 0; inset-inline: 0;
+      z-index: 100;
+      padding: 0.72rem 0;
+      background: rgba(232,245,248,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(14,71,161,0.1), 0 2px 12px rgba(14,71,161,0.08);
+    }
+    #page-header .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { text-decoration: none; display: inline-flex; align-items: center; }
+    .logo img { height: 68px; width: auto; display: block; }
+
+    /* ===========================================
+       LEGAL CONTENT
+    =========================================== */
+    main { display: block; }
+    .legal-content {
+      max-width: 760px;
+      padding-block: 7rem 5.5rem;
+    }
+    .legal-content h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .legal-content .updated-date {
+      color: var(--muted);
+      font-size: 0.875rem;
+      margin-bottom: 2.5rem;
+    }
+    .legal-content h2 {
+      font-size: 1.375rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .legal-content p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .legal-content ul, .legal-content ol {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      padding-inline-start: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .legal-content strong { color: var(--text); font-weight: 700; }
+    .legal-content a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .legal-content a:hover,
+    .legal-content a:focus-visible { color: var(--accent-hov); }
+
+    /* ===========================================
+       FOOTER
+    =========================================== */
+    footer {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 1.8rem 0;
+    }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+
+    .footer-legal {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      column-gap: 1.5rem;
+      row-gap: 0;
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-legal a:hover,
+    .footer-legal a:focus-visible { color: var(--accent-lt); }
+
+    /* ===========================================
+       MOBILE
+    =========================================== */
+    @media (max-width: 767px) {
+      .container { padding-inline: 1.25rem; }
+      .legal-content { padding-block: 5.5rem 3rem; }
+      .legal-content h1 { font-size: clamp(1.5rem, 7vw, 1.875rem); }
+      .legal-content h2 { font-size: 1.125rem; margin-top: 2rem; }
+      .legal-content p, .legal-content ul, .legal-content ol { font-size: 0.9375rem; }
+      .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .footer-legal { column-gap: 1rem; }
+    }
+    @media (max-width: 479px) {
+      .logo img { height: 36px; }
+      .container { padding-inline: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="page-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><img src="images/website_logo.png" alt="kydo — לוגו האתר" width="300" height="300" /></a>
+    <a href="index.html" class="btn btn-primary btn-sm">חזרה לדף הבית</a>
+  </div>
+</header>
+
+<main>
+  <div class="container legal-content">
+    <h1>מדיניות פרטיות ועוגיות</h1>
+    <p class="updated-date">עודכן לאחרונה: 6 בנובמבר 2026</p>
+
+    <h2>כללי</h2>
+    <p>
+      kydo מכבדת את פרטיות המשתמשים באתר ומחויבת להגנה על המידע האישי שנמסר על ידם. מסמך זה
+      מפרט את אופן איסוף המידע, השימוש בו ואמצעי ההגנה עליו.
+    </p>
+
+    <h2>המידע הנאסף</h2>
+    <p>
+      לצורך אספקת המוצר ויצירת קשר עם הלקוח <strong>בלבד</strong>, אנו אוספים את הפרטים הבאים
+      הנמסרים על ידי המשתמש בעת ביצוע הזמנה ו/או פנייה דרך האתר:
+    </p>
+    <ul>
+      <li>שם מלא</li>
+      <li>מספר טלפון</li>
+      <li>כתובת למשלוח</li>
+      <li>כתובת דוא״ל</li>
+    </ul>
+    <p>
+      המידע משמש אך ורק לצורך השלמת ההזמנה, יצירת קשר בנוגע אליה, ומתן שירות לקוחות — ולא
+      מועבר לכל מטרה אחרת.
+    </p>
+
+    <h2>עוגיות (Cookies) וכלי ניתוח</h2>
+    <p>
+      האתר עושה שימוש בקובצי <strong>עוגיות (Cookies)</strong> לצורך תפעולו השוטף ושיפור חוויית
+      המשתמש.
+    </p>
+    <p>
+      בנוסף, האתר עשוי לעשות שימוש בכלים כגון <strong>Meta Pixel</strong> (Facebook Pixel) ו-
+      <strong>Google Analytics</strong>, לצורך ניתוח סטטיסטי של השימוש באתר, מדידת ביצועים,
+      והתאמת קמפיינים שיווקיים ופרסומיים לקהל היעד הרלוונטי.
+    </p>
+    <p>
+      ניתן לחסום או למחוק עוגיות באמצעות הגדרות הדפדפן, אך הדבר עשוי לפגוע בתפקוד התקין של
+      חלקים מסוימים באתר.
+    </p>
+
+    <h2>אבטחת מידע ואמצעי תשלום</h2>
+    <p>
+      <strong>פרטי אמצעי התשלום (כגון מספרי כרטיסי אשראי) אינם נשמרים בשרתי האתר בשום שלב</strong>,
+      ועוברים טיפול באמצעות ספק/י סליקה מאובטחים העומדים בתקני אבטחת מידע מקובלים.
+    </p>
+
+    <h2>מסירת מידע לצדדים שלישיים</h2>
+    <p>
+      החברה לא תעביר את פרטי המשתמשים לצדדים שלישיים, למעט ככל שנדרש לצורך אספקת המוצר (כגון
+      חברת שילוח) או מקום בו הדבר מתחייב על פי דין.
+    </p>
+
+    <h2>פנייה בנושא פרטיות</h2>
+    <p>
+      לכל שאלה או בקשה בנוגע לפרטיות ניתן לפנות אלינו בדוא״ל:
+      <a href="mailto:Buyflowboard@gmail.com">Buyflowboard@gmail.com</a>.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="index.html" class="logo"><img src="images/website_logo.png" alt="kydo — לוגו האתר" width="300" height="300" /></a>
+      <p>© 2026 kydo. כל הזכויות שמורות.</p>
+    </div>
+    <nav class="footer-legal" aria-label="קישורים משפטיים">
+      <a href="accessibility.html">הצהרת נגישות</a>
+      <a href="terms.html">תקנון ותנאי שימוש</a>
+      <a href="privacy.html">מדיניות פרטיות</a>
+      <a href="cancellation.html">ביטול עסקה</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
