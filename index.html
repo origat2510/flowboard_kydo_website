@@ -89,7 +89,14 @@
       --sh-lg:        0 16px 56px rgba(14,71,161,0.15);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Heebo', sans-serif;
@@ -98,9 +105,19 @@
       direction: rtl;
       line-height: 1.6;
       overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
     }
 
-    img, svg { display: block; }
+    .page-wrap {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    img, svg { display: block; max-width: 100%; }
 
     /* ===========================================
        TYPOGRAPHY HELPERS
@@ -567,33 +584,34 @@
     .about-features {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      align-items: start;
       gap: 1.25rem;
     }
 
     .about-feat {
       background: var(--card);
       border-radius: var(--r);
-      padding: 1.75rem 1.5rem;
+      padding: 1.25rem 1rem;
       border: 1px solid var(--border);
     }
 
     .feat-icon {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 1.1rem;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.75rem;
       background: rgba(14,71,161,0.08);
-      border-radius: 12px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent);
     }
-    .feat-icon svg { width: 24px; height: 24px; }
+    .feat-icon svg { width: 20px; height: 20px; }
 
     .about-feat h4 {
       font-size: 0.97rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
       color: var(--text);
     }
 
@@ -1035,8 +1053,21 @@
 
     /* --- Mobile: < 768px --- */
     @media (max-width: 767px) {
+      /* -- Hero image: full-bleed cover, positioned to keep the boards large and in frame -- */
+      .hero-bg {
+        background-size: cover;
+        background-position: center 65%;
+      }
+
+      /* -- Hero sizing: leave room so the dark KPI strip fits on screen without scrolling -- */
+      #hero {
+        min-height: calc(100vh - 80px);
+        padding-bottom: 2.25rem;
+      }
+      .hero-actions { gap: 0.75rem; }
+
       /* -- Headings -- */
-      .hero-content h1 { font-size: clamp(1.625rem, 7vw, 1.875rem); }
+      .hero-content h1 { font-size: clamp(1.625rem, 7vw, 1.875rem); margin-bottom: 0.9rem; }
       .section-title,
       .story-text h2,
       #cta h2 { font-size: clamp(1.25rem, 6vw, 1.5rem); }
@@ -1045,23 +1076,23 @@
       .design-name { font-size: 1.05rem; }
       .specs-wrap h3 { font-size: 1rem; }
 
-      /* -- Paragraphs & running text -- */
-      .hero-sub { font-size: 0.9375rem; line-height: 1.65; }
-      .concept-z-body p { font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1.2rem; }
-      .about-desc { font-size: 0.9375rem; line-height: 1.6; }
-      .about-feat p { font-size: 0.875rem; }
-      .concept-header p { font-size: 0.9375rem; }
-      .gallery-header p { font-size: 0.9375rem; }
-      .design-tagline { font-size: 0.875rem; }
-      .box-info p { font-size: 0.875rem; }
-      #cta > .container > p { font-size: 0.9375rem; }
-      .story-text p { font-size: 0.9375rem; line-height: 1.65; }
-      .faq-item summary { padding: 1rem 1.25rem; font-size: 0.9375rem; }
-      .faq-item p { padding: 0 1.25rem 1.1rem; font-size: 0.9rem; }
+      /* -- Paragraphs & running text: min 16px, relaxed leading -- */
+      .hero-sub { font-size: 1.0625rem; line-height: 1.6; margin-bottom: 1.5rem; }
+      .concept-z-body p { font-size: 1rem; line-height: 1.6; margin-bottom: 1.2rem; }
+      .about-desc { font-size: 1rem; line-height: 1.6; }
+      .about-feat p { font-size: 1rem; line-height: 1.55; }
+      .concept-header p { font-size: 1rem; line-height: 1.55; }
+      .gallery-header p { font-size: 1rem; line-height: 1.55; }
+      .design-tagline { font-size: 1rem; line-height: 1.5; }
+      .box-info p { font-size: 1rem; line-height: 1.55; }
+      #cta > .container > p { font-size: 1rem; line-height: 1.55; }
+      .story-text p { font-size: 1rem; line-height: 1.6; }
+      .faq-item summary { padding: 1rem 1.25rem; font-size: 1rem; }
+      .faq-item p { padding: 0 1.25rem 1.1rem; font-size: 1rem; line-height: 1.6; }
 
       /* -- Lists -- */
       .check-list { gap: 0.5rem; }
-      .check-list li { font-size: 0.875rem; }
+      .check-list li { font-size: 1rem; line-height: 1.5; }
 
       .lifestyle-split { grid-template-columns: 1fr; height: auto; }
       .lifestyle-panel { height: 55vw; min-height: 260px; }
@@ -1134,13 +1165,13 @@
       .footer-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
       .footer-legal { column-gap: 1rem; }
 
-      #kpi-strip { padding: 0.5rem 0; }
-      .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-      .kpi-item { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.25rem; }
-      .kpi-num { font-size: 0.85rem; }
-      .kpi-label { font-size: 0.75rem; }
-      .kpi-icon { width: 28px; height: 28px; border-radius: 7px; }
-      .kpi-icon svg { width: 14px; height: 14px; }
+      #kpi-strip { padding: 0.4rem 0; }
+      .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+      .kpi-item { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.2rem; }
+      .kpi-num { font-size: 0.8rem; }
+      .kpi-label { font-size: 0.7rem; }
+      .kpi-icon { width: 24px; height: 24px; border-radius: 6px; }
+      .kpi-icon svg { width: 13px; height: 13px; }
     }
 
     /* --- Small Mobile: < 480px --- */
@@ -1162,6 +1193,7 @@
   </style>
 </head>
 <body>
+<div class="page-wrap">
 
 <!-- ============================================================
      NAVBAR
@@ -1291,7 +1323,7 @@
           </svg>
         </div>
         <h4>חיזוק הגוף</h4>
-        <p>כלי תרגול מעולה לחיזוק הגוף, הקואורדינציה ושיווי המשקל. האימון מחזק את שרירי הליבה והיציבה, עוזר לשיפור הריכוז ותורם לביטחון העצמי — בצורה מהנה ואפקטיבית.</p>
+        <p>שיפור שיווי המשקל, הקואורדינציה וחיזוק שרירי הליבה והיציבה — באימון חווייתי ואפקטיבי.</p>
       </div>
       <div class="about-feat">
         <div class="feat-icon">
@@ -1302,7 +1334,7 @@
           </svg>
         </div>
         <h4>בטיחות מקסימלית</h4>
-        <p>הבורד תוכנן תוך דגש על בטיחות מקסימלית וחומרים עמידים, כדי שתוכלו להתאמן בראש שקט ובביטחון מלא — בלי פשרות על האיכות.</p>
+        <p>תכנון מוקפד מחומרים עמידים ואיכותיים לאימון בטוח, יציב ובראש שקט.</p>
       </div>
       <div class="about-feat">
         <div class="feat-icon">
@@ -1314,7 +1346,7 @@
           </svg>
         </div>
         <h4>פריט נוי לבית</h4>
-        <p>בסיום האימון פשוט תולים אותו על הקיר. הבורד מגיע עם גליל ומתלה קיר מעוצב, כולל שני דיבלים ושני ברגים להתקנה פשוטה וקלה.</p>
+        <p>בסיום האימון תולים על הקיר. מגיע כערכה שלמה עם גליל ומתלה עץ מעוצב.</p>
       </div>
       <div class="about-feat">
         <div class="feat-icon">
@@ -1325,7 +1357,7 @@
           </svg>
         </div>
         <h4>בכל זמן ומקום</h4>
-        <p>אפשר לתרגל בבית או בחוץ בכל זמן שתרצו, בלי התארגנות מסובכת ובלי מאמץ לוגיסטי. פשוט מורידים, עומדים, מתאמנים.</p>
+        <p>מתרגלים בבית, במשרד או בחוץ. בלי היערכות מורכבת — פשוט מניחים ומתאמנים.</p>
       </div>
     </div>
   </div>
@@ -1677,6 +1709,7 @@
   </div>
 </footer>
 
+</div>
 
 <script>
   // ── Reduced motion: don't force autoplaying video on users who asked for less motion ──
