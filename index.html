@@ -951,31 +951,27 @@
     }
 
     /* ===========================================
-       BRAND VIDEO — wide cinematic strip below hero
+       ABOUT VIDEO — brand clip embedded in "על המוצר"
     =========================================== */
-    #brand-video {
-      background: var(--bg);
-      padding: 4rem 0;
-    }
-    .brand-video-wrap {
-      max-width: 960px;
+    .about-video {
+      width: 100%;
+      max-width: 896px;
       margin-inline: auto;
-      border-radius: var(--r);
+      margin-bottom: 3.5rem;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: var(--sh);
+      box-shadow: var(--sh-lg);
       aspect-ratio: 16 / 9;
       background: var(--bg-alt);
     }
-    .brand-video-wrap video {
+    .about-video video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      background: var(--bg-alt);
     }
     @media (max-width: 767px) {
-      #brand-video { padding: 2.5rem 0; }
-      .brand-video-wrap { border-radius: calc(var(--r) - 2px); }
+      .about-video { border-radius: 16px; margin-bottom: 2.5rem; }
     }
 
     /* ===========================================
@@ -1231,20 +1227,6 @@
 
 
 <!-- ============================================================
-     BRAND VIDEO — wide cinematic clip below hero (experiment)
-============================================================ -->
-<section id="brand-video">
-  <div class="container">
-    <div class="brand-video-wrap">
-      <video autoplay loop muted playsinline aria-hidden="true">
-        <source src="videos/brand-video.mp4" type="video/mp4" />
-      </video>
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================================
      KPI STRIP — trust signals below hero
 ============================================================ -->
 <section id="kpi-strip">
@@ -1276,6 +1258,74 @@
           <div class="kpi-num">120 ק״ג</div>
           <div class="kpi-label">כושר נשיאה</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="about-lead">
+      <span class="eyebrow">על המוצר</span>
+      <h2 class="section-title">ה-<bdi>Flowboard</bdi></h2>
+      <p class="about-desc">
+        השילוב המושלם בין אימון גופני לעיצוב הבית.
+        לא רק מכשיר כושר — פריט נוי שמוסיף סטייל לחיים שלכם.
+      </p>
+    </div>
+    <div class="about-video">
+      <video autoplay muted loop playsinline controls aria-label="סרטון תדמית Flowboard">
+        <source src="videos/brand-video.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="about-features">
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- dumbbell / strength -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 4v16M18 4v16M4 8h4M16 8h4M4 16h4M16 16h4M8 12h8"/>
+          </svg>
+        </div>
+        <h4>חיזוק הגוף</h4>
+        <p>כלי תרגול מעולה לחיזוק הגוף, הקואורדינציה ושיווי המשקל. האימון מחזק את שרירי הליבה והיציבה, עוזר לשיפור הריכוז ותורם לביטחון העצמי — בצורה מהנה ואפקטיבית.</p>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- shield / safety -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+        </div>
+        <h4>בטיחות מקסימלית</h4>
+        <p>הבורד תוכנן תוך דגש על בטיחות מקסימלית וחומרים עמידים, כדי שתוכלו להתאמן בראש שקט ובביטחון מלא — בלי פשרות על האיכות.</p>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- picture frame / wall art -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </div>
+        <h4>פריט נוי לבית</h4>
+        <p>בסיום האימון פשוט תולים אותו על הקיר. הבורד מגיע עם גליל ומתלה קיר מעוצב, כולל שני דיבלים ושני ברגים להתקנה פשוטה וקלה.</p>
+      </div>
+      <div class="about-feat">
+        <div class="feat-icon">
+          <!-- compass / anytime anywhere -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+          </svg>
+        </div>
+        <h4>בכל זמן ומקום</h4>
+        <p>אפשר לתרגל בבית או בחוץ בכל זמן שתרצו, בלי התארגנות מסובכת ובלי מאמץ לוגיסטי. פשוט מורידים, עומדים, מתאמנים.</p>
       </div>
     </div>
   </div>
@@ -1355,69 +1405,6 @@
       </div>
     </div>
 
-  </div>
-</section>
-
-
-<!-- ============================================================
-     ABOUT
-============================================================ -->
-<section id="about">
-  <div class="container">
-    <div class="about-lead">
-      <span class="eyebrow">על המוצר</span>
-      <h2 class="section-title">ה-<bdi>Flowboard</bdi></h2>
-      <p class="about-desc">
-        השילוב המושלם בין אימון גופני לעיצוב הבית.
-        לא רק מכשיר כושר — פריט נוי שמוסיף סטייל לחיים שלכם.
-      </p>
-    </div>
-    <div class="about-features">
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- dumbbell / strength -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 4v16M18 4v16M4 8h4M16 8h4M4 16h4M16 16h4M8 12h8"/>
-          </svg>
-        </div>
-        <h4>חיזוק הגוף</h4>
-        <p>כלי תרגול מעולה לחיזוק הגוף, הקואורדינציה ושיווי המשקל. האימון מחזק את שרירי הליבה והיציבה, עוזר לשיפור הריכוז ותורם לביטחון העצמי — בצורה מהנה ואפקטיבית.</p>
-      </div>
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- shield / safety -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <polyline points="9 12 11 14 15 10"/>
-          </svg>
-        </div>
-        <h4>בטיחות מקסימלית</h4>
-        <p>הבורד תוכנן תוך דגש על בטיחות מקסימלית וחומרים עמידים, כדי שתוכלו להתאמן בראש שקט ובביטחון מלא — בלי פשרות על האיכות.</p>
-      </div>
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- picture frame / wall art -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <polyline points="21 15 16 10 5 21"/>
-          </svg>
-        </div>
-        <h4>פריט נוי לבית</h4>
-        <p>בסיום האימון פשוט תולים אותו על הקיר. הבורד מגיע עם גליל ומתלה קיר מעוצב, כולל שני דיבלים ושני ברגים להתקנה פשוטה וקלה.</p>
-      </div>
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- compass / anytime anywhere -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-          </svg>
-        </div>
-        <h4>בכל זמן ומקום</h4>
-        <p>אפשר לתרגל בבית או בחוץ בכל זמן שתרצו, בלי התארגנות מסובכת ובלי מאמץ לוגיסטי. פשוט מורידים, עומדים, מתאמנים.</p>
-      </div>
-    </div>
   </div>
 </section>
 
