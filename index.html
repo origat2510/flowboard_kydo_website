@@ -122,17 +122,9 @@
     /* ===========================================
        TYPOGRAPHY HELPERS
     =========================================== */
-    .eyebrow {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.9rem;
-    }
-    /* eyebrow on dark section backgrounds */
-    #hero .eyebrow, #cta .eyebrow { color: var(--accent-lt); }
+    ::selection { background: var(--accent); color: var(--white); }
+
+    h1, h2, h3 { text-wrap: balance; }
 
     .section-title {
       font-size: clamp(1.9rem, 4vw, 3rem);
@@ -410,6 +402,7 @@
 
     .lifestyle-split {
       display: grid;
+      position: relative;
       grid-template-columns: 1fr 1fr;
       height: 70vh;
       min-height: 420px;
@@ -442,8 +435,8 @@
 
     .lifestyle-label {
       position: absolute;
-      bottom: 2.2rem;
-      right: 2rem;
+      bottom: 2.25rem;
+      inset-inline-start: 2rem;
       z-index: 1;
       color: var(--white);
     }
@@ -455,8 +448,8 @@
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0px 4px 12px rgba(0, 0, 0, 0.6);
     }
     .lifestyle-label p {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.72);
+      font-size: 1rem;
+      color: rgba(255,255,255,0.9);
       margin-top: 0.3rem;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0px 4px 12px rgba(0, 0, 0, 0.6);
     }
@@ -581,42 +574,6 @@
       line-height: 1.78;
     }
 
-    .about-features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      align-items: start;
-      gap: 1.25rem;
-    }
-
-    .about-feat {
-      background: var(--card);
-      border-radius: var(--r);
-      padding: 1.25rem 1rem;
-      border: 1px solid var(--border);
-    }
-
-    .feat-icon {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 0.75rem;
-      background: rgba(14,71,161,0.08);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-    }
-    .feat-icon svg { width: 20px; height: 20px; }
-
-    .about-feat h4 {
-      font-size: 0.97rem;
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-      color: var(--text);
-    }
-
-    .about-feat p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
-
     /* ===========================================
        GALLERY
     =========================================== */
@@ -643,7 +600,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
     }
     .design-card:hover {
-      transform: translateY(-7px);
+      transform: translateY(-4px);
       box-shadow: var(--sh-lg);
       border-color: rgba(45,112,232,0.35);
     }
@@ -652,28 +609,33 @@
       width: 100%;
       aspect-ratio: 1 / 1;
       overflow: hidden;
-      background: var(--bg-alt);
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
     }
     .design-img img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      padding: 0.75rem;
-      transition: transform 0.4s ease;
+      object-position: center center;
+      padding: 1rem;
+      transition: transform 0.3s ease;
     }
-    .design-card:hover .design-img img { transform: scale(1.04); }
+    @media (prefers-reduced-motion: no-preference) {
+      .design-card:hover .design-img img { transform: scale(1.04); }
+    }
 
     .design-body { padding: 1.5rem; }
 
     .design-name {
-      font-size: 1.22rem;
+      font-size: 1.375rem;
       font-weight: 800;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.25rem;
       color: var(--text);
     }
-    .design-tagline { font-size: 0.83rem; color: var(--muted); margin-bottom: 1.2rem; }
+    .design-tagline { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; }
 
-    .design-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; }
+    .design-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .design-footer .btn { padding: 0.75rem 1.5rem; }
 
     .design-price {
       display: flex;
@@ -681,11 +643,83 @@
       gap: 0.5rem;
     }
     .price-now {
-      font-size: 1.45rem;
+      font-size: 1.75rem;
       font-weight: 900;
       color: var(--accent);
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
+
+    /* ===========================================
+       REVIEWS — manual carousel, shown only once real reviews exist
+    =========================================== */
+    #reviews { background: var(--bg); }
+    #reviews[hidden] { display: none; }
+
+    .reviews-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .reviews-nav { display: flex; gap: 0.5rem; }
+    .reviews-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .reviews-btn:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-2px); }
+    .reviews-btn:active:not(:disabled) { transform: translateY(0); }
+    .reviews-btn:disabled { opacity: 0.4; cursor: default; }
+
+    .reviews-track {
+      list-style: none;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% - 2 * 1.5rem) / 3);
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 0.5rem;
+    }
+    .reviews-track::-webkit-scrollbar { display: none; }
+
+    .review-card {
+      scroll-snap-align: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .review-card blockquote p {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .review-meta { margin-top: auto; display: flex; align-items: center; gap: 0.75rem; }
+    .review-meta img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .review-name { font-weight: 700; color: var(--text); font-style: normal; }
+    .review-detail { font-size: 0.875rem; color: var(--muted); }
     /* ===========================================
        IN THE BOX
     =========================================== */
@@ -699,7 +733,7 @@
     }
     .inbox-sub {
       color: var(--muted);
-      font-size: 0.93rem;
+      font-size: 1.05rem;
       margin-top: 0.5rem;
       margin-bottom: 2rem;
     }
@@ -720,8 +754,8 @@
       color: var(--accent);
       flex-shrink: 0;
     }
-    .box-info h4 { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.18rem; color: var(--text); }
-    .box-info p  { font-size: 0.81rem; color: var(--muted); line-height: 1.5; }
+    .box-info h3 { font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.18rem; color: var(--text); }
+    .box-info p  { font-size: 0.9375rem; color: var(--muted); line-height: 1.5; }
 
     .specs-wrap h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--text); }
 
@@ -760,7 +794,7 @@
       color: var(--white);
     }
     #cta > .container > p {
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.75);
       font-size: 1.05rem;
       margin-bottom: 2.5rem;
       max-width: 460px;
@@ -799,15 +833,15 @@
     }
 
     .cta-actions { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-    .cta-fine { font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+    .cta-fine { font-size: 0.875rem; color: rgba(255,255,255,0.75); }
 
     .payment-notice {
       margin-top: 2.8rem;
       padding: 1.1rem 1.8rem;
       border: 1px dashed rgba(255,255,255,0.14);
       border-radius: var(--r);
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.32);
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.75);
       max-width: 480px;
       margin-inline: auto;
       line-height: 1.6;
@@ -886,7 +920,7 @@
       padding: 1.8rem 0;
     }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; }
-    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+    footer p { font-size: 0.875rem; color: rgba(255,255,255,0.75); }
 
     .footer-legal {
       display: flex;
@@ -903,9 +937,9 @@
       align-items: center;
       min-height: 44px;
       padding-inline: 0.25rem;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.75);
       text-decoration: none;
       transition: color 0.2s ease;
     }
@@ -966,7 +1000,7 @@
       width: 100%;
       max-width: 896px;
       margin-inline: auto;
-      margin-bottom: 3.5rem;
+      margin-bottom: 0;
       border-radius: 20px;
       overflow: hidden;
       box-shadow: var(--sh-lg);
@@ -980,7 +1014,7 @@
       display: block;
     }
     @media (max-width: 767px) {
-      .about-video { border-radius: 16px; margin-bottom: 2.5rem; }
+      .about-video { border-radius: 16px; }
     }
 
     /* ===========================================
@@ -1024,7 +1058,7 @@
     }
     .kpi-label {
       font-size: 0.78rem;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.75);
       margin-top: 0.15rem;
     }
 
@@ -1038,6 +1072,7 @@
       .concept-z-row:first-of-type,
       .concept-z-row:last-of-type { grid-template-columns: 1fr 1fr; }
       .concept-z-img { height: 380px; }
+      .reviews-track { grid-auto-columns: calc((100% - 1.5rem) / 2); }
       .concept-z-body { padding: 2.5rem 2.5rem; }
       .kpi-grid { gap: 2rem; }
     }
@@ -1058,20 +1093,19 @@
       .hero-actions { gap: 0.75rem; }
 
       /* -- Headings -- */
-      .hero-content h1 { font-size: clamp(1.625rem, 7vw, 1.875rem); margin-bottom: 0.9rem; }
+      .hero-content h1 { font-size: clamp(2.25rem, 10vw, 2.75rem); margin-bottom: 1rem; }
       .section-title,
       .story-text h2,
-      #cta h2 { font-size: clamp(1.25rem, 6vw, 1.5rem); }
-      .concept-z-body h3 { font-size: 1.125rem; margin-bottom: 0.6rem; }
+      #cta h2 { font-size: clamp(1.75rem, 7.5vw, 2rem); }
+      .concept-z-body h3 { font-size: 1.5rem; margin-bottom: 0.75rem; }
       .story-text h2 { margin-bottom: 1.25rem; }
-      .design-name { font-size: 1.05rem; }
-      .specs-wrap h3 { font-size: 1rem; }
+      .design-name { font-size: 1.25rem; }
+      .specs-wrap h3 { font-size: 1.25rem; }
 
       /* -- Paragraphs & running text: min 16px, relaxed leading -- */
       .hero-sub { font-size: 1.0625rem; line-height: 1.6; margin-bottom: 1.5rem; }
       .concept-z-body p { font-size: 1rem; line-height: 1.6; margin-bottom: 1.2rem; }
       .about-desc { font-size: 1rem; line-height: 1.6; }
-      .about-feat p { font-size: 1rem; line-height: 1.55; }
       .concept-header p { font-size: 1rem; line-height: 1.55; }
       .gallery-header p { font-size: 1rem; line-height: 1.55; }
       .design-tagline { font-size: 1rem; line-height: 1.5; }
@@ -1097,8 +1131,6 @@
       .concept-z-row { display: block; }
       .concept-z-img { height: 42vw; min-height: 240px; }
       .concept-z-body { padding: 1.75rem 1.25rem; }
-
-      .about-features { grid-template-columns: repeat(2, 1fr); }
 
       .designs-grid {
         display: flex;
@@ -1149,6 +1181,9 @@
 
       .inbox-grid { grid-template-columns: 1fr; gap: 3rem; }
 
+      .reviews-head { margin-bottom: 1.5rem; }
+      .reviews-track { grid-auto-columns: 85%; gap: 1rem; }
+
       #navbar .nav-links { display: none; }
       #navbar .btn { display: none; }
       .menu-btn { display: flex; }
@@ -1160,17 +1195,17 @@
       .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
       .kpi-item { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.2rem; }
       .kpi-num { font-size: 0.8rem; }
-      .kpi-label { font-size: 0.7rem; }
+      .kpi-label { font-size: 0.75rem; }
       .kpi-icon { width: 24px; height: 24px; border-radius: 6px; }
       .kpi-icon svg { width: 13px; height: 13px; }
     }
 
     /* --- Small Mobile: < 480px --- */
     @media (max-width: 479px) {
-      .hero-content h1 { font-size: 1.5rem; }
+      .hero-content h1 { font-size: clamp(2.125rem, 10vw, 2.5rem); }
       .section-title,
       .story-text h2,
-      #cta h2 { font-size: 1.25rem; }
+      #cta h2 { font-size: 1.75rem; }
 
       .container { padding-inline: 1rem; }
       section { padding: 2rem 0; }
@@ -1233,13 +1268,12 @@
   <div class="hero-overlay"></div>
 
   <div class="container hero-content">
-    <span class="eyebrow">FlowBoard by KYDO</span>
     <h1>
       אמנות על הקיר.<br>
       <em>אימון בסלון.</em>
     </h1>
     <p class="hero-sub">
-      כלי אימון מקצועי לחיזוק שרירי הליבה ושיווי המשקל, שהופך לפריט אמנות לתלייה על הקיר בסיום האימון.
+      <bdi>FlowBoard</bdi> של <bdi>KYDO</bdi>: בורד איזון מעץ לחיזוק שרירי הליבה, היציבה ושיווי המשקל, שהופך לפריט אמנות על הקיר בסיום האימון.
     </p>
     <div class="hero-actions">
       <a href="#gallery" class="btn btn-primary btn-lg">לבחירת עיצוב</a>
@@ -1293,63 +1327,16 @@
 <section id="about">
   <div class="container">
     <div class="about-lead">
-      <span class="eyebrow">על המוצר</span>
       <h2 class="section-title">ה-<bdi>FlowBoard</bdi></h2>
       <p class="about-desc">
         השילוב המושלם בין אימון גופני לעיצוב הבית.
-        לא רק מכשיר כושר — פריט נוי שמוסיף סטייל לחיים שלכם.
+        לא רק מכשיר כושר, אלא פריט נוי שמוסיף סטייל לחיים שלכם.
       </p>
     </div>
     <div class="about-video">
-      <video autoplay muted loop playsinline controls aria-label="סרטון תדמית FlowBoard">
+      <video autoplay muted loop playsinline controls preload="metadata" poster="images/training-new.webp" aria-label="סרטון תדמית FlowBoard">
         <source src="videos/brand-video.mp4" type="video/mp4" />
       </video>
-    </div>
-    <div class="about-features">
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- dumbbell / strength -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 4v16M18 4v16M4 8h4M16 8h4M4 16h4M16 16h4M8 12h8"/>
-          </svg>
-        </div>
-        <h4>חיזוק הגוף</h4>
-        <p>שיפור שיווי המשקל, הקואורדינציה וחיזוק שרירי הליבה והיציבה — באימון חווייתי ואפקטיבי.</p>
-      </div>
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- shield / safety -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <polyline points="9 12 11 14 15 10"/>
-          </svg>
-        </div>
-        <h4>בטיחות מקסימלית</h4>
-        <p>תכנון מוקפד מחומרים עמידים ואיכותיים לאימון בטוח, יציב ובראש שקט.</p>
-      </div>
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- picture frame / wall art -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/>
-            <circle cx="8.5" cy="8.5" r="1.5"/>
-            <polyline points="21 15 16 10 5 21"/>
-          </svg>
-        </div>
-        <h4>פריט נוי לבית</h4>
-        <p>בסיום האימון תולים על הקיר. מגיע כערכה שלמה עם גליל ומתלה עץ מעוצב.</p>
-      </div>
-      <div class="about-feat">
-        <div class="feat-icon">
-          <!-- compass / anytime anywhere -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-          </svg>
-        </div>
-        <h4>בכל זמן ומקום</h4>
-        <p>מתרגלים בבית, במשרד או בחוץ. בלי היערכות מורכבת — פשוט מניחים ומתאמנים.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -1372,7 +1359,7 @@
       <img src="images/hanging-wall.webp" alt="FlowBoard כתמונת קיר" loading="lazy" width="1170" height="1687" style="object-position: center 45%;" />
       <div class="lifestyle-label">
         <h3>תלו על הקיר.</h3>
-        <p>בסיום האימון — תמונה.</p>
+        <p>בסיום האימון, תמונה.</p>
       </div>
     </div>
   </div>
@@ -1385,9 +1372,8 @@
 <section id="concept">
   <div class="container">
     <div class="concept-header">
-      <span class="eyebrow">הרעיון</span>
       <h2 class="section-title">שני מוצרים. מחיר אחד.</h2>
-      <p>ציוד אימון שלא צריך להחביא – פריט מעוצב שמוסיף סטייל לכל חלל.</p>
+      <p>ציוד אימון שלא צריך להחביא: פריט מעוצב שמוסיף סטייל לכל חלל.</p>
     </div>
   </div>
   <div class="concept-z-wrap">
@@ -1401,12 +1387,12 @@
       </div>
       <div class="concept-z-body">
         <h3>ציוד אימון מקצועי</h3>
-        <p>כמה דקות תרגול ביום לחיזוק הגוף, שיפור היציבה ושיווי המשקל – לגלישה, לסנובורד וליומיום.</p>
+        <p>כמה דקות תרגול ביום לחיזוק הגוף, שיפור היציבה ושיווי המשקל. לכושר, לספורט וליומיום.</p>
         <ul class="check-list">
           <li>שיפור שיווי משקל ויציבה</li>
           <li>חיזוק שרירי ליבה ומייצבים</li>
           <li>פיתוח קואורדינציה ושליטה בגוף</li>
-          <li>אימון משלים מעולה לגולשים ולספורטאים</li>
+          <li>מתאים לכולם: מתחילים, ספורטאים וכל מי שרוצה לזוז יותר</li>
         </ul>
       </div>
     </div>
@@ -1438,7 +1424,6 @@
 <section id="gallery">
   <div class="container">
     <div class="gallery-header">
-      <span class="eyebrow">בחרו את הסגנון</span>
       <h2 class="section-title">איזה בורד מתאים לקיר שלכם?</h2>
       <p>שלושה שילובים של צבע ואנרגיה, תבחרו את מה שמשתלב מושלם בבית.</p>
     </div>
@@ -1455,7 +1440,7 @@
             <div class="design-price">
               <span class="price-now">₪329</span>
             </div>
-            <a href="#cta" class="btn btn-primary btn-sm" data-design="לוטוס לבן">בחרו עיצוב זה</a>
+            <a href="#cta" class="btn btn-primary" data-design="לוטוס לבן">בחרו עיצוב זה</a>
           </div>
         </div>
       </div>
@@ -1471,7 +1456,7 @@
             <div class="design-price">
               <span class="price-now">₪329</span>
             </div>
-            <a href="#cta" class="btn btn-primary btn-sm" data-design="הגל הגדול">בחרו עיצוב זה</a>
+            <a href="#cta" class="btn btn-primary" data-design="הגל הגדול">בחרו עיצוב זה</a>
           </div>
         </div>
       </div>
@@ -1487,7 +1472,7 @@
             <div class="design-price">
               <span class="price-now">₪329</span>
             </div>
-            <a href="#cta" class="btn btn-primary btn-sm" data-design="לוטוס ורוד">בחרו עיצוב זה</a>
+            <a href="#cta" class="btn btn-primary" data-design="לוטוס ורוד">בחרו עיצוב זה</a>
           </div>
         </div>
       </div>
@@ -1503,41 +1488,76 @@
 
 
 <!-- ============================================================
+     REVIEWS — קרוסלת ממליצים
+     הסקשן מוסתר אוטומטית כל עוד אין ביקורות. כדי להוסיף ביקורת אמיתית,
+     העתיקו את הבלוק לדוגמה שבתוך ה-<ul> (בלי סימני ההערה) ומלאו אותו
+     בטקסט המקורי של הלקוח, באישורו. התמונה אופציונלית.
+
+     <li class="review-card">
+       <blockquote><p>טקסט הביקורת המקורי</p></blockquote>
+       <div class="review-meta">
+         <img src="images/reviews/NAME.webp" alt="תמונה של NAME" width="96" height="96" loading="lazy" />
+         <div>
+           <cite class="review-name">שם הלקוח</cite>
+           <div class="review-detail">עיר · עיצוב לוטוס לבן</div>
+         </div>
+       </div>
+     </li>
+============================================================ -->
+<section id="reviews" aria-labelledby="reviews-title" hidden>
+  <div class="container">
+    <div class="reviews-head">
+      <h2 class="section-title" id="reviews-title">מה אומרים הלקוחות</h2>
+      <div class="reviews-nav">
+        <button class="reviews-btn" type="button" data-dir="prev" aria-label="לביקורת הקודמת">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </button>
+        <button class="reviews-btn" type="button" data-dir="next" aria-label="לביקורת הבאה">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+        </button>
+      </div>
+    </div>
+    <ul class="reviews-track" tabindex="0" aria-label="ביקורות לקוחות, גללו לצפייה בעוד">
+    </ul>
+  </div>
+</section>
+
+
+<!-- ============================================================
      IN THE BOX
 ============================================================ -->
 <section id="inbox">
   <div class="container">
     <div class="inbox-grid">
       <div>
-        <span class="eyebrow">מה מגיע אליכם</span>
-        <h2 class="section-title" style="margin-bottom:0.5rem;">בתוך הקופסה</h2>
-        <p class="inbox-sub">הכל כלול — פותחים, מרכיבים, מתחילים.</p>
+        <h2 class="section-title">בתוך הקופסה</h2>
+        <p class="inbox-sub">הכל כלול. פותחים, מרכיבים, מתחילים.</p>
         <div class="box-items">
           <div class="box-item">
             <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg></div>
             <div class="box-info">
-              <h4>לוח FlowBoard</h4>
-              <p>עץ לבוד מבוקר עם הדפס UV בחדות גבוהה. הלוח שבחרתם בגלריה — מגיע מוכן לשימוש.</p>
+              <h3>לוח FlowBoard</h3>
+              <p>עץ לבוד מבוקר עם הדפס UV בחדות גבוהה. הלוח שבחרתם מגיע מוכן לשימוש.</p>
             </div>
           </div>
           <div class="box-item">
             <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/></svg></div>
             <div class="box-info">
-              <h4>גליל שעם</h4>
-              <p>גליל שעם טבעי שמניחים מתחת ללוח. יוצר את תנועת האיזון — המקור לכל האתגר.</p>
+              <h3>גליל שעם</h3>
+              <p>גליל שעם טבעי שמניחים מתחת ללוח. יוצר את תנועת האיזון, המקור לכל האתגר.</p>
             </div>
           </div>
           <div class="box-item">
             <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg></div>
             <div class="box-info">
-              <h4>מתלה קיר</h4>
-              <p>מתלה מעץ איכותי שמתקינים לקיר. מחזיק את הלוח בזווית ייצוגית — תמונה לכל דבר.</p>
+              <h3>מתלה קיר</h3>
+              <p>מתלה מעץ איכותי שמתקינים לקיר. מחזיק את הלוח בזווית ייצוגית, תמונה לכל דבר.</p>
             </div>
           </div>
           <div class="box-item">
             <div class="box-icon"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
             <div class="box-info">
-              <h4>ערכת התקנה</h4>
+              <h3>ערכת התקנה</h3>
               <p>2 דיבלים ו-2 ברגים להתקנת המתלה. הכל מוכן להתקנה פשוטה ומהירה על הקיר.</p>
             </div>
           </div>
@@ -1570,16 +1590,15 @@
 
     <!-- טקסט — ימין (RTL) -->
     <div class="story-text">
-      <span class="eyebrow">קצת עלינו</span>
       <h2>הסיפור שלנו</h2>
       <p>
-        אנחנו תומר ואורי, שני אחים שחיים ונושמים ספורט ותנועה. כגולשים, תמיד חיפשנו דרך להתאמן ולחזק את הליבה והשיווי משקל גם כשאנחנו מחוץ למים, והפתרון הטבעי היה באלאנס בורד. אבל מהר מאוד גילינו שרוב הלוחות בשוק פשוטים וחסרי ייחוד עיצובי — וכשציוד נזרק למחסן, הוא פשוט מפסיק להיות בשימוש.
+        אנחנו תומר ואורי, שני אחים שחיים ונושמים ספורט ותנועה. כגולשים, תמיד חיפשנו דרך להתאמן ולחזק את הליבה והשיווי משקל גם כשאנחנו מחוץ למים, והפתרון הטבעי היה באלאנס בורד. אבל מהר מאוד גילינו שרוב הלוחות בשוק פשוטים וחסרי ייחוד עיצובי. וכשציוד נזרק למחסן, הוא פשוט מפסיק להיות בשימוש.
       </p>
       <p>
-        הבנו שכדי ליצור הרגל אימון אמיתי, המוצר חייב להיות זמין, נגיש — ובעיקר <strong>כזה שכיף לראות.</strong>
+        הבנו שכדי ליצור הרגל אימון אמיתי, המוצר חייב להיות זמין, נגיש, ובעיקר <strong>כזה שכיף לראות.</strong>
       </p>
       <p>
-        ככה נולד FlowBoard — באלאנס בורד איכותי בעיצוב אמנותי מרהיב, כזה שלא מחביאים במחסן אלא גאים לתלות על הקיר בסלון. מוצר שנולד מהים אבל מיועד לכל בית ולכל אדם שרוצה להכניס יותר תנועה, כושר וכיף לשגרה היומית שלו.
+        ככה נולד FlowBoard: באלאנס בורד איכותי בעיצוב אמנותי מרהיב, כזה שלא מחביאים במחסן אלא גאים לתלות על הקיר בסלון. מוצר שנולד מהים אבל מיועד לכל בית ולכל אדם שרוצה להכניס יותר תנועה, כושר וכיף לשגרה היומית שלו.
       </p>
     </div>
 
@@ -1598,7 +1617,6 @@
 <section id="faq">
   <div class="container">
     <div class="faq-header">
-      <span class="eyebrow">שאלות ותשובות</span>
       <h2 class="section-title">שאלות נפוצות</h2>
     </div>
     <div class="faq-list">
@@ -1647,9 +1665,8 @@
 ============================================================ -->
 <section id="cta">
   <div class="container">
-    <span class="eyebrow">הזמינו עכשיו</span>
     <h2>מוכנים לשדרג<br>את האימון והבית?</h2>
-    <p>בחרו את העיצוב שמדבר אליכם — ונדאג לכל השאר.</p>
+    <p>בחרו את העיצוב שמדבר אליכם, ואנחנו נדאג לכל השאר.</p>
     <div class="cta-designs">
       <button class="cta-chip" data-design="לוטוס לבן"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg> לוטוס לבן</button>
       <button class="cta-chip" data-design="הגל הגדול"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 7.5C5.25 6 6.75 4.5 9 4.5s3.75 1.5 5.25 3 3 3 5.25 3M3.75 13.5c1.5-1.5 3-3 5.25-3s3.75 1.5 5.25 3 3 3 5.25 3"/></svg> הגל הגדול</button>
@@ -1737,6 +1754,31 @@
     }, { root: designsGrid, threshold: [0.5, 0.75, 1] });
 
     designCards.forEach(card => cardObserver.observe(card));
+  }
+
+  // ── Reviews carousel: visible only when real reviews exist; manual only, no autoplay ──
+  const reviewsSection = document.getElementById('reviews');
+  const reviewsTrack   = reviewsSection && reviewsSection.querySelector('.reviews-track');
+  if (reviewsTrack && reviewsTrack.querySelector('.review-card')) {
+    reviewsSection.hidden = false;
+    const prevBtn = reviewsSection.querySelector('[data-dir="prev"]');
+    const nextBtn = reviewsSection.querySelector('[data-dir="next"]');
+    const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // RTL: the "next" card lies toward the left, where scrollLeft is negative
+    const step = () => reviewsTrack.querySelector('.review-card').offsetWidth +
+                       parseFloat(getComputedStyle(reviewsTrack).columnGap || 0);
+    const update = () => {
+      const max = reviewsTrack.scrollWidth - reviewsTrack.clientWidth;
+      const pos = Math.abs(reviewsTrack.scrollLeft);
+      prevBtn.disabled = pos <= 2;
+      nextBtn.disabled = pos >= max - 2;
+      reviewsSection.querySelector('.reviews-nav').hidden = max <= 2;
+    };
+    prevBtn.addEventListener('click', () => reviewsTrack.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }));
+    nextBtn.addEventListener('click', () => reviewsTrack.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }));
+    reviewsTrack.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   }
 
   // ── Nav scroll ────────────────────────────────────────────

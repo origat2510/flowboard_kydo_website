@@ -17,3 +17,6 @@ claud skills/
 
 # Impeccable engine binary (downloaded on first run)
 .claude/skills/impeccable/scripts/bin/
+
+# Impeccable — per-developer overrides (hook consent etc.)
+.impeccable/config.local.json
