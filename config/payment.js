@@ -13,12 +13,10 @@
       • קישור מלא  →  פרטי ההזמנה נשלחים אליכם, והלקוח מועבר מיד לדף
                       התשלום המאובטח של הדגם שבחר.
 
-   2. קבלת פרטי ההזמנה בדוא"ל (orderEmail / web3formsKey)
-      ברירת המחדל: FormSubmit (חינמי, בלי הרשמה). בהזמנה הראשונה תגיע
-      לתיבת orderEmail הודעת הפעלה (Activate Form) מ-FormSubmit: יש ללחוץ
-      על הקישור בה פעם אחת, ומאז כל הזמנה תגיע לתיבה.
-      חלופה: מפתח גישה של Web3Forms (web3forms.com). אם ממלאים אותו,
-      ההזמנות יישלחו דרך Web3Forms במקום FormSubmit.
+   2. קבלת פרטי ההזמנה בדוא"ל (web3formsKey)
+      ההזמנות נשלחות דרך Web3Forms (web3forms.com) לתיבה שמחוברת למפתח
+      הגישה. המפתח הזה ציבורי מטבעו (מיועד לשימוש בדפדפן) ואינו סוד.
+      אם המפתח ריק, המערכת חוזרת ל-FormSubmit לכתובת orderEmail.
    ===================================================================== */
 
 window.KYDO_CONFIG = {
@@ -31,7 +29,7 @@ window.KYDO_CONFIG = {
   },
 
   orderEmail: 'buyflowboard@gmail.com',
-  web3formsKey: '',
+  web3formsKey: '37f3b8b8-5262-41a1-be9c-5c0f6c9d9da1',
 
   whatsappNumber: '972525933432',
 };

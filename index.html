@@ -2351,7 +2351,7 @@
     async function sendOrder(o, paymentLink) {
       const fields = Object.fromEntries(rows(o));
       fields['קישור תשלום'] = paymentLink || 'טרם הוגדר: יש לשלוח ללקוח קישור לתשלום';
-      const subject = `הזמנה חדשה ${o.id}: FlowBoard ${o.model}`;
+      const subject = `הזמנה חדשה באתר KYDO - מספר ${o.id}`;
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 10000);
       try {
@@ -2360,7 +2360,7 @@
           res = await fetch('https://api.web3forms.com/submit', {
             method: 'POST', signal: ctrl.signal,
             headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ access_key: cfg.web3formsKey, subject, from_name: 'KYDO אתר', replyto: o.email, ...fields }),
+            body: JSON.stringify({ access_key: cfg.web3formsKey, subject, from_name: 'KYDO Website', replyto: o.email, ...fields }),
           });
         } else {
           res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(cfg.orderEmail)}`, {

@@ -26,7 +26,7 @@ Two products, one price: real training equipment that is also decor. Because of 
 
 ## Operating Context
 
-- **Ordering:** through the on-site order form (`#order-form` in `index.html`): model, delivery or pickup, customer details, terms consent. Order details go to the order inbox via FormSubmit (or Web3Forms); payment links per model are set in `config/payment.js`. With no link set, the customer sees an order confirmation and a representative sends a payment link.
+- **Ordering:** through the on-site order form (`#order-form` in `index.html`): model, delivery or pickup, customer details, terms consent. Order details go to the order inbox via Web3Forms (key in `config/payment.js`; FormSubmit is the fallback when the key is empty); payment links per model are set in `config/payment.js`. With no link set, the customer sees an order confirmation and a representative sends a payment link.
 - **Use:** at home: put the roller under the board, train, then hang it on the wall mount.
 - **Shipping:** free home delivery anywhere in Israel, included in the ₪329; up to 7 business days from order confirmation; free self-pickup in Tel Aviv-Yafo arranged on WhatsApp. Full policy in `shipping.html`.
 - **Business identity (footer, every page):** KYDO, operated by Ori Gat (עוסק פטור), Tel Aviv-Yafo; phone/WhatsApp 052-5933432.
