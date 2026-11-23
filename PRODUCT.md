@@ -41,6 +41,7 @@ Two products, one price: real training equipment that is also decor. Because of 
 ## Brand Commitments
 
 - Brand name: **KYDO**. Product name: **FlowBoard**. This is the spelling in all visible text (the contact email `Buyflowboard@gmail.com` stays as it is).
+- Product category term in Hebrew: **"באלאנס בורד"** (with this exact spelling, e.g. "באלאנס בורד מעץ"). Don't use "בורד איזון" or other spellings.
 - Logo: `images/website_logo.png`.
 - Voice: plain, warm Hebrew speaking directly to the reader in the plural ("תבחרו", "תולים על הקיר").
 
