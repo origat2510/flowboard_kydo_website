@@ -28,6 +28,8 @@ Two products, one price: real training equipment that is also decor. Because of 
 
 - **Ordering:** through WhatsApp (`wa.me` link with a pre-filled message, number in `index.html`). The site promises "we'll get back to you within an hour · delivery across Israel".
 - **Use:** at home: put the roller under the board, train, then hang it on the wall mount.
+- **Shipping:** free home delivery anywhere in Israel, included in the ₪329; up to 7 business days from order confirmation; free self-pickup in Tel Aviv-Yafo arranged on WhatsApp. Full policy in `shipping.html`.
+- **Business identity (footer, every page):** KYDO, operated by Ori Gat (עוסק פטור), Tel Aviv-Yafo; phone/WhatsApp 052-5933432.
 - **In the box:** a FlowBoard (plywood with a high-definition UV print), a natural cork roller, a wooden wall mount, and an installation kit (2 wall plugs + 2 screws).
 
 ## Capabilities and Constraints
@@ -40,7 +42,7 @@ Two products, one price: real training equipment that is also decor. Because of 
 
 ## Brand Commitments
 
-- Brand name: **KYDO**. Product name: **FlowBoard**. This is the spelling in all visible text (the contact email `Buyflowboard@gmail.com` stays as it is).
+- Brand name: **KYDO**. Product name: **FlowBoard**. This is the spelling in all visible text (contact email: `buyflowboard@gmail.com`).
 - Product category term in Hebrew: **"באלאנס בורד"** (with this exact spelling, e.g. "באלאנס בורד מעץ"). Don't use "בורד איזון" or other spellings.
 - Logo: `images/website_logo.png`.
 - Voice: plain, warm Hebrew speaking directly to the reader in the plural ("תבחרו", "תולים על הקיר").

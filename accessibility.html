@@ -174,7 +174,7 @@
       padding: 1.8rem 0;
     }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; }
-    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+    footer p { font-size: 0.875rem; color: rgba(255,255,255,0.75); }
 
     .footer-legal {
       display: flex;
@@ -191,14 +191,33 @@
       align-items: center;
       min-height: 44px;
       padding-inline: 0.25rem;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.75);
       text-decoration: none;
       transition: color 0.2s ease;
     }
     .footer-legal a:hover,
     .footer-legal a:focus-visible { color: var(--accent-lt); }
+
+    /* Business details (required for payment-processor approval) */
+    .footer-biz { font-style: normal; text-align: end; }
+    footer .footer-biz-name { font-size: 0.9375rem; font-weight: 700; color: var(--white); }
+    .footer-contact {
+      list-style: none; margin: 0.25rem 0 0; padding: 0;
+      display: flex; flex-wrap: wrap; justify-content: flex-end; column-gap: 1.5rem;
+    }
+    .footer-contact li {
+      display: inline-flex; align-items: center; min-height: 44px;
+      font-size: 0.875rem; color: rgba(255,255,255,0.75);
+    }
+    .footer-contact a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; transition: color 0.2s ease; }
+    .footer-contact a:hover, .footer-contact a:focus-visible { color: var(--accent-lt); }
+    footer .footer-copy { margin-top: 0.5rem; text-align: center; font-size: 0.8125rem; }
+    @media (max-width: 767px) {
+      .footer-biz { text-align: center; }
+      .footer-contact { justify-content: center; column-gap: 1rem; }
+    }
 
     /* ===========================================
        MOBILE
@@ -265,7 +284,7 @@
     <p>לפניות, שאלות או הערות בנוגע לנגישות האתר, ניתן לפנות לרכז הנגישות מטעם KYDO:</p>
     <ul>
       <li><strong>טלפון:</strong> 052-5933432 (מענה בימי עסקים, א׳–ה׳, בין השעות 09:00–18:00)</li>
-      <li><strong>דוא״ל:</strong> <a href="mailto:Buyflowboard@gmail.com">Buyflowboard@gmail.com</a></li>
+      <li><strong>דוא״ל:</strong> <a href="mailto:buyflowboard@gmail.com">buyflowboard@gmail.com</a></li>
     </ul>
     <p>נשתדל להשיב לכל פנייה בהקדם האפשרי ולטפל בכל בעיית נגישות שתועלה בפנינו.</p>
   </div>
@@ -275,14 +294,23 @@
   <div class="container">
     <div class="footer-inner">
       <a href="index.html" class="logo"><img src="images/website_logo.png" alt="KYDO — לוגו האתר" width="300" height="300" /></a>
-      <p>© 2026 KYDO. כל הזכויות שמורות.</p>
+      <address class="footer-biz">
+        <p class="footer-biz-name"><bdi>KYDO</bdi> | מופעל על ידי אורי גת (עוסק פטור)</p>
+        <ul class="footer-contact">
+          <li>תל אביב-יפו, ישראל</li>
+          <li><a href="https://wa.me/972525933432"><span>טלפון / וואטסאפ: <bdi dir="ltr">052-5933432</bdi></span></a></li>
+          <li><a href="mailto:buyflowboard@gmail.com">buyflowboard@gmail.com</a></li>
+        </ul>
+      </address>
     </div>
     <nav class="footer-legal" aria-label="קישורים משפטיים">
-      <a href="accessibility.html">הצהרת נגישות</a>
       <a href="terms.html">תקנון ותנאי שימוש</a>
+      <a href="shipping.html">משלוחים ואספקה</a>
+      <a href="cancellation.html">ביטול עסקה והחזרות</a>
       <a href="privacy.html">מדיניות פרטיות</a>
-      <a href="cancellation.html">ביטול עסקה</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
     </nav>
+    <p class="footer-copy">© 2026 <bdi>KYDO</bdi>. כל הזכויות שמורות.</p>
   </div>
 </footer>
 

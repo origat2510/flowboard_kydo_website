@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מדיניות ביטולים וטופס ביטול עסקה | KYDO</title>
+  <title>ביטול עסקה והחזרות | KYDO</title>
   <meta name="description" content="מדיניות ביטול עסקה של KYDO בהתאם לחוק הגנת הצרכן, ותוכן מקוון לשליחת הודעת ביטול." />
   <link rel="canonical" href="https://kydo.co.il/cancellation.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -218,7 +218,7 @@
       padding: 1.8rem 0;
     }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; }
-    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.28); }
+    footer p { font-size: 0.875rem; color: rgba(255,255,255,0.75); }
 
     .footer-legal {
       display: flex;
@@ -235,14 +235,33 @@
       align-items: center;
       min-height: 44px;
       padding-inline: 0.25rem;
-      font-size: 0.8rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.75);
       text-decoration: none;
       transition: color 0.2s ease;
     }
     .footer-legal a:hover,
     .footer-legal a:focus-visible { color: var(--accent-lt); }
+
+    /* Business details (required for payment-processor approval) */
+    .footer-biz { font-style: normal; text-align: end; }
+    footer .footer-biz-name { font-size: 0.9375rem; font-weight: 700; color: var(--white); }
+    .footer-contact {
+      list-style: none; margin: 0.25rem 0 0; padding: 0;
+      display: flex; flex-wrap: wrap; justify-content: flex-end; column-gap: 1.5rem;
+    }
+    .footer-contact li {
+      display: inline-flex; align-items: center; min-height: 44px;
+      font-size: 0.875rem; color: rgba(255,255,255,0.75);
+    }
+    .footer-contact a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; transition: color 0.2s ease; }
+    .footer-contact a:hover, .footer-contact a:focus-visible { color: var(--accent-lt); }
+    footer .footer-copy { margin-top: 0.5rem; text-align: center; font-size: 0.8125rem; }
+    @media (max-width: 767px) {
+      .footer-biz { text-align: center; }
+      .footer-contact { justify-content: center; column-gap: 1rem; }
+    }
 
     /* ===========================================
        MOBILE
@@ -274,8 +293,8 @@
 
 <main>
   <div class="container legal-content">
-    <h1>מדיניות ביטולים וטופס ביטול עסקה</h1>
-    <p class="updated-date">עודכן לאחרונה: 6 בנובמבר 2026</p>
+    <h1>מדיניות ביטול עסקה והחזרות</h1>
+    <p class="updated-date">עודכן לאחרונה: 23 בנובמבר 2026</p>
 
     <h2>זכות ביטול עסקה</h2>
     <p>
@@ -294,7 +313,8 @@
     <h2>דמי ביטול</h2>
     <p>
       בוטלה העסקה שלא עקב פגם במוצר או אי-התאמה בינו לבין הפרטים שנמסרו ללקוח, רשאית KYDO
-      לגבות דמי ביטול בשיעור שלא יעלה על <strong>5% ממחיר המוצר או 100 ₪ — לפי הנמוך מביניהם</strong>.
+      לגבות דמי ביטול בשיעור שלא יעלה על <strong>5% ממחיר המוצר או 100 ₪, לפי הנמוך מביניהם</strong>.
+        במחיר של 329 ₪, דמי הביטול לא יעלו על <strong>16.45 ₪</strong>.
     </p>
     <p>
       בוטלה העסקה עקב פגם במוצר, אי-התאמה, אי-אספקה במועד, או כל הפרה אחרת מצד החברה —
@@ -309,19 +329,26 @@
     <p>ניתן להודיע על ביטול עסקה באחת הדרכים הבאות:</p>
     <ul>
       <li>מילוי הטופס המקוון שבהמשך העמוד</li>
-      <li>פנייה בדוא״ל לכתובת <a href="mailto:Buyflowboard@gmail.com">Buyflowboard@gmail.com</a></li>
+      <li>פנייה בדוא״ל לכתובת <a href="mailto:buyflowboard@gmail.com">buyflowboard@gmail.com</a></li>
       <li>פנייה טלפונית או בוואטסאפ למספר 052-5933432</li>
     </ul>
-    <p>
-      מוצר שנרכש ומוחזר, יוחזר ככל הניתן באריזתו המקורית ובמצב תקין — אלא אם הביטול נובע מפגם
-      או מאי-התאמה.
-    </p>
+    <h2>החזרת המוצר</h2>
+      <p>
+        יש להחזיר את המוצר <strong>באריזתו המקורית</strong>, כשהוא שלם, ללא סימני שימוש ובמצב שבו התקבל,
+        יחד עם כל רכיבי הערכה (הבורד, גליל השעם, מתלה הקיר וערכת ההתקנה). דרישה זו אינה חלה
+        כשהביטול נובע מפגם או מאי-התאמה.
+      </p>
+      <ul>
+        <li><strong>החזרה באיסוף עצמי:</strong> ניתן להחזיר את המוצר בתל אביב-יפו ללא עלות, בתיאום מראש בוואטסאפ.</li>
+        <li><strong>החזרה במשלוח:</strong> עלות המשלוח חזרה חלה על הלקוח, אלא אם הביטול נובע מפגם, מאי-התאמה או מאיחור באספקה, ואז העסק נושא בה במלואה.</li>
+        <li>המשלוח ללקוח ניתן ללא תשלום, ולכן לא יקוזזו דמי משלוח מסכום ההחזר.</li>
+      </ul>
 
     <h2>טופס ביטול עסקה מקוון</h2>
     <form id="cancel-form" class="legal-form" novalidate>
       <p class="form-note">
         מילוי הטופס ולחיצה על ״שליחת הודעת ביטול״ יפתחו הודעת דוא״ל מוכנה מראש לכתובת
-        Buyflowboard@gmail.com דרך תוכנת הדוא״ל שמוגדרת במכשירכם — יש לוודא את שליחתה בפועל.
+        buyflowboard@gmail.com דרך תוכנת הדוא״ל שמוגדרת במכשירכם — יש לוודא את שליחתה בפועל.
       </p>
       <label>
         שם מלא
@@ -352,14 +379,23 @@
   <div class="container">
     <div class="footer-inner">
       <a href="index.html" class="logo"><img src="images/website_logo.png" alt="KYDO — לוגו האתר" width="300" height="300" /></a>
-      <p>© 2026 KYDO. כל הזכויות שמורות.</p>
+      <address class="footer-biz">
+        <p class="footer-biz-name"><bdi>KYDO</bdi> | מופעל על ידי אורי גת (עוסק פטור)</p>
+        <ul class="footer-contact">
+          <li>תל אביב-יפו, ישראל</li>
+          <li><a href="https://wa.me/972525933432"><span>טלפון / וואטסאפ: <bdi dir="ltr">052-5933432</bdi></span></a></li>
+          <li><a href="mailto:buyflowboard@gmail.com">buyflowboard@gmail.com</a></li>
+        </ul>
+      </address>
     </div>
     <nav class="footer-legal" aria-label="קישורים משפטיים">
-      <a href="accessibility.html">הצהרת נגישות</a>
       <a href="terms.html">תקנון ותנאי שימוש</a>
+      <a href="shipping.html">משלוחים ואספקה</a>
+      <a href="cancellation.html">ביטול עסקה והחזרות</a>
       <a href="privacy.html">מדיניות פרטיות</a>
-      <a href="cancellation.html">ביטול עסקה</a>
+      <a href="accessibility.html">הצהרת נגישות</a>
     </nav>
+    <p class="footer-copy">© 2026 <bdi>KYDO</bdi>. כל הזכויות שמורות.</p>
   </div>
 </footer>
 
@@ -382,7 +418,7 @@
       'סיבת ביטול: ' + reason;
 
     window.location.href =
-      'mailto:Buyflowboard@gmail.com?subject=' + encodeURIComponent(subject) +
+      'mailto:buyflowboard@gmail.com?subject=' + encodeURIComponent(subject) +
       '&body=' + encodeURIComponent(body);
   });
 </script>
