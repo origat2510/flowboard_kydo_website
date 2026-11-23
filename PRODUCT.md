@@ -47,7 +47,7 @@ Two products, one price: real training equipment that is also decor. Because of 
 
 ## Evidence on Hand
 
-- **Real customer reviews:** exist, but are not yet in the repo. The `#reviews` section in `index.html` is ready for them and stays hidden while it's empty. Use only the original text the user supplies. Never write, edit or invent reviews, names or ratings.
+- **Real recommendations:** 5 approved recommendations (name, title, photo, quote; publication approved by each person) are in the `#reviews` section of `index.html`, with profile photos `images/review-*.webp`: Itay Karbachik (My Surfway), Yonatan Tzur (Self Yoga Studio), Nir Elior (Moveom and DeClub), Zohar Bracha (Physyou TLV), Mika Yaakov (yoga instructor and wellness expert). Add more in the same format. Use only the original text the user supplies. Never write, edit or invent reviews, names or ratings.
 - **Spec:** 120 kg weight capacity (verified).
 - **Video:** `videos/brand-video.mp4` (brand video), `videos/action-demo.mp4` (training demo).
 - **Photos:** `images/`: the three designs (`white-lotus`, `wave`, `pink-lotus`), the board hanging on a wall (`hanging-wall`, `wall-new`), training (`training-new`, `action-mountain`), team (`team`), hero (`hero-bg`).

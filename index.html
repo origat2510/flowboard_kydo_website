@@ -703,11 +703,14 @@
       scroll-snap-type: x mandatory;
       scrollbar-width: none;
       padding-bottom: 0.5rem;
+      align-items: stretch;        /* every card in the row takes the tallest card's height */
+      overscroll-behavior-x: contain;
     }
     .reviews-track::-webkit-scrollbar { display: none; }
 
     .review-card {
       scroll-snap-align: start;
+      height: 100%;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--r);
@@ -721,16 +724,29 @@
       line-height: 1.7;
       color: var(--text);
     }
-    .review-meta { margin-top: auto; display: flex; align-items: center; gap: 0.75rem; }
+    .review-meta {
+      margin-top: auto;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
     .review-meta img {
       width: 48px;
       height: 48px;
+      flex-shrink: 0;
       border-radius: 50%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center center;
+      border: 2px solid var(--card);
+      box-shadow: 0 0 0 1px var(--border);
+      background: var(--bg-alt);
     }
-    .review-name { font-weight: 700; color: var(--text); font-style: normal; }
-    .review-detail { font-size: 0.875rem; color: var(--muted); }
+    .review-name { display: block; font-weight: 700; color: var(--text); font-style: normal; }
+    /* reserve two lines for the title so the divider and names line up on every card */
+    .review-detail { font-size: 0.875rem; line-height: 1.5; min-height: 3em; color: var(--muted); }
+    .review-detail bdi { white-space: nowrap; }
     /* ===========================================
        IN THE BOX
     =========================================== */
@@ -1518,17 +1534,67 @@
 <section id="reviews" aria-labelledby="reviews-title" hidden>
   <div class="container">
     <div class="reviews-head">
-      <h2 class="section-title" id="reviews-title">מה אומרים הלקוחות</h2>
+      <h2 class="section-title" id="reviews-title">מה אומרים עלינו</h2>
       <div class="reviews-nav">
-        <button class="reviews-btn" type="button" data-dir="prev" aria-label="לביקורת הקודמת">
+        <button class="reviews-btn" type="button" data-dir="prev" aria-label="להמלצה הקודמת">
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </button>
-        <button class="reviews-btn" type="button" data-dir="next" aria-label="לביקורת הבאה">
+        <button class="reviews-btn" type="button" data-dir="next" aria-label="להמלצה הבאה">
           <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
         </button>
       </div>
     </div>
-    <ul class="reviews-track" tabindex="0" aria-label="ביקורות לקוחות, גללו לצפייה בעוד">
+    <ul class="reviews-track" tabindex="0" aria-label="המלצות, גללו לצפייה בעוד">
+      <li class="review-card">
+        <blockquote><p>מבחינתי זה מוצר חובה לכל גולש. אנשים לא מבינים כמה אפשר לעבוד על הגלישה גם מחוץ למים. שיווי משקל, יציבות, שליטה בגוף, כל הדברים שעושים את ההבדל כשאתה עומד על הגל. והכי חשוב, זה פשוט כיף.</p></blockquote>
+        <div class="review-meta">
+          <img src="images/review-itay.webp" alt="תמונת פרופיל של איתי קרבצ'יק" width="200" height="200" loading="lazy" decoding="async" />
+          <div>
+            <cite class="review-name">איתי קרבצ'יק</cite>
+            <div class="review-detail">בעל בית הספר לגלישה <bdi>My Surfway</bdi></div>
+          </div>
+        </div>
+      </li>
+      <li class="review-card">
+        <blockquote><p>מה שאני אוהב בבורד הזה זה שהוא נראה פשוט, אבל ברגע שעולים עליו מבינים כמה עבודה יש פה. הוא דורש ממך להיות מרוכז, להרגיש את הגוף ולמצוא את האיזון בכל רגע מחדש.</p></blockquote>
+        <div class="review-meta">
+          <img src="images/review-yonatan.webp" alt="תמונת פרופיל של יונתן צור" width="200" height="200" loading="lazy" decoding="async" />
+          <div>
+            <cite class="review-name">יונתן צור</cite>
+            <div class="review-detail">מדריך יוגה ותיק, <bdi>Self Yoga Studio</bdi></div>
+          </div>
+        </div>
+      </li>
+      <li class="review-card">
+        <blockquote><p>אני אוהב דברים שמאתגרים את הגוף בצורה קצת אחרת, והבורד הזה עושה בדיוק את זה. אתה עולה עליו וחושב שזה יהיה קל, ואז מבין כמה עוד יש לך לעבוד על השליטה בגוף. כלי מעולה, גם למי שמתאמן שנים.</p></blockquote>
+        <div class="review-meta">
+          <img src="images/review-nir.webp" alt="תמונת פרופיל של ניר אליאור" width="200" height="200" loading="lazy" decoding="async" />
+          <div>
+            <cite class="review-name">ניר אליאור</cite>
+            <div class="review-detail">מדריך תנועה ועמידות ידיים, <bdi>Moveom</bdi> ו-<bdi>DeClub</bdi></div>
+          </div>
+        </div>
+      </li>
+      <li class="review-card">
+        <blockquote><p>הרבה אנשים מתחילים לעבוד על שיווי משקל רק אחרי שהם נפצעים, וחבל. זה משהו שחשוב לתרגל גם לפני, כדי להפחית את הסיכון לפציעות. אני אוהבת את הבורד הזה כי הוא הופך את התרגול הזה למשהו שאשכרה כיף לעשות בבית.</p></blockquote>
+        <div class="review-meta">
+          <img src="images/review-zohar.webp" alt="תמונת פרופיל של זהר ברכה" width="200" height="200" loading="lazy" decoding="async" />
+          <div>
+            <cite class="review-name">זהר ברכה</cite>
+            <div class="review-detail">פיזיותרפיסטית ב-<bdi>Physyou TLV</bdi></div>
+          </div>
+        </div>
+      </li>
+      <li class="review-card">
+        <blockquote><p>שיווי משקל הוא הבסיס לתנועה נכונה ולחיבור בין הגוף לנפש. הבאלאנס בורד של <bdi>KYDO</bdi> הוא דרך מדהימה לשפר יציבות, לחזק את הגוף ולהכניס תנועה ומודעות לשגרת היום.</p></blockquote>
+        <div class="review-meta">
+          <img src="images/review-mika.webp" alt="תמונת פרופיל של מיקה יעקב" width="200" height="200" loading="lazy" decoding="async" />
+          <div>
+            <cite class="review-name">מיקה יעקב</cite>
+            <div class="review-detail">מדריכת יוגה ומומחית לוולנס</div>
+          </div>
+        </div>
+      </li>
     </ul>
   </div>
 </section>
