@@ -8,6 +8,65 @@ File: `index.html`. Images: `images/`. Icons: `icons/sprite.svg`.
 Design system reference: `design-system/MASTER.md` — read this before any UI change.  
 Stack: pure HTML + CSS custom properties + vanilla JS.
 
+## Maintenance Rule — ALWAYS
+
+**בסיום כל שינוי משמעותי בקוד או בהגדרות האתר, עדכן את סעיף הסטטוס והצעדים הבאים בקובץ CLAUDE.md כדי שיישאר מעודכן לסשן הבא.**
+
+In practice: after any meaningful code or configuration change, update "Project Status" and "Next Steps" below (and the date line) in the same commit.
+
+---
+
+## Project Status
+
+_Last updated: 2026-11-23._
+
+**Live site:** https://kydo.co.il, served by GitHub Pages from the root of `main` (repo `origat2510/flowboard_kydo_website`). `CNAME` at the repo root holds `kydo.co.il`; there is no build step and no `public/` folder. Never delete `CNAME`.
+
+**Business details** (shown in the footer of every page and in the legal pages):
+- KYDO | מופעל על ידי אורי גת (עוסק פטור), so no VAT is charged and ₪329 is the final price
+- תל אביב-יפו, ישראל
+- Phone / WhatsApp: 052-5933432
+- Email: buyflowboard@gmail.com
+
+**Product and pricing:** FlowBoard by KYDO: a wooden balance board ("באלאנס בורד") with a cork roller and a wooden wall mount, in 3 designs: לוטוס לבן, הגל הגדול, לוטוס ורוד. **₪329 for every model**, flat, no sale framing. Includes **free home delivery anywhere in Israel, up to 7 business days**, or **free self-pickup from Tel Aviv-Yafo** arranged in advance on WhatsApp. Product truth, voice and evidence rules live in `PRODUCT.md`.
+
+**Pages:** `index.html` (all CSS and JS inline), `terms.html`, `shipping.html`, `cancellation.html` (returns and online cancellation form), `privacy.html`, `accessibility.html`. Canonical, `og:url` and share-image URLs are absolute on `https://kydo.co.il`.
+
+**Order form** (`#cta` section, `<form id="order-form">` in `index.html`):
+1. Model choice: radio cards (`name="model"`, values `white-lotus` / `great-wave` / `pink-lotus`); the side summary updates live. Each product card's "הזמינו עכשיו" button (`data-model`) preselects its model and scrolls to the form.
+2. Delivery: `shipping` shows city + street-and-number (required) and flat/floor + courier notes (optional); `pickup` hides and disables the address fields.
+3. Customer: full name (first + last), Israeli mobile (05XXXXXXXX, +972 accepted), email.
+4. Required consent checkbox linking to the terms, cancellation and shipping policies (open in a new tab).
+5. Submit "המשך לתשלום מאובטח — 329 ₪" with a lock icon and the PCI-DSS / אשראי / Bit / Apple Pay note. Hebrew validation messages per field; focus jumps to the first error.
+- The section sits on a warm sand ground (`--sand`) with a white form card; the confirmation panel is `#order-confirm`.
+
+**Order delivery:** on submit the order is POSTed as JSON to **Web3Forms** (`https://api.web3forms.com/submit`) with `access_key` (from `config/payment.js`), subject `הזמנה חדשה באתר KYDO - מספר <id>`, `from_name: "KYDO Website"`, and Hebrew fields: מספר הזמנה, דגם, שיטת קבלה, כתובת, הערות לשליח, שם, טלפון, אימייל, סה״כ לתשלום, קישור תשלום. Order ids look like `KYDO-YYMMDD-NNNN`. FormSubmit is only a fallback when the key is empty. If sending fails, the confirmation offers the customer one-tap sending via WhatsApp or email so no order is lost.
+
+**Payment settings — `config/payment.js`** (the only file to edit for payments):
+- `paymentLinks['white-lotus' | 'great-wave' | 'pink-lotus']`: currently **empty**. Empty → the customer sees an order confirmation and a representative sends a payment link. Filled → the order is sent, then the customer is redirected to that model's payment page.
+- `web3formsKey` (public by design), `orderEmail`, `whatsappNumber`, `price`.
+
+## Next Steps
+
+- [ ] Place one real test order on https://kydo.co.il and confirm it arrives through Web3Forms.
+- [ ] When the payment company (grow / PayPlus) approves, paste the three payment links into `config/payment.js` and push.
+- [ ] Have the return-shipping wording in `cancellation.html` checked against the law / the payment company's guidelines.
+- [ ] If a marketing opt-in is ever added, it must default to unchecked (see Legal & Compliance §3).
+
+---
+
+## Installed Skills & Design Direction
+
+Two design skills are installed for this project and must be used for every future UI change:
+- **`impeccable`** (pbakaus/impeccable): `.claude/skills/impeccable`, committed to the repo. Run its context step, then the matching command (`polish`, `audit`, `critique`, `layout`…); read its craft floor before UI edits. Its design hook config is `.impeccable/config.json`.
+- **Taste Skill** (Leonxlnx/taste-skill), invoked as `design-taste-frontend`: installed locally under `.claude/skills/design-taste-frontend` (not committed). Use it to review layout, copy and imagery against its anti-template rules.
+
+Where a skill's generic rule conflicts with this file, `PRODUCT.md` or an explicit user brief, the project wins (e.g. the reviews carousel is manual-only by the user's request).
+
+**KYDO's visual language:** light, warm and natural: airy light-blue grounds (`--bg`, `--bg-alt`), a warm sand ground (`--sand`) that echoes the natural wood of the boards, white cards with soft shadows, deep-blue accents (`--accent`), real product and lifestyle photographs, Heebo type, full Hebrew RTL. Dark grounds are reserved for the hero overlay, KPI strip and footer. Keep new UI in this language.
+
+---
+
 ## Icon Usage
 Icons are in `icons/sprite.svg` (Heroicons v2 outline, 24×24).  
 Use: `<svg class="icon" aria-hidden="true"><use href="icons/sprite.svg#icon-NAME"></use></svg>`  
@@ -144,7 +203,7 @@ Before delivering any UI change:
   --bg-alt:     #D8EDF2;   /* alternate section background */
   --card:       #FFFFFF;
   --card-2:     #F0F8FC;
-  --dark:       #030A15;   /* hero, CTA, footer */
+  --dark:       #030A15;   /* hero overlay, KPI strip, footer */
   --dark-2:     #050E1C;   /* footer */
   --text:       #0C1C30;
   --muted:      #4A6580;
@@ -152,6 +211,10 @@ Before delivering any UI change:
   --accent-hov: #0A3480;
   --accent-lt:  #2D70E8;   /* accent on dark backgrounds only */
   --border:     #B4D4E4;
+  --field-border: #7A93AB; /* form-control borders, 3:1 on white */
+  --error:      #B42318;   /* validation messages */
+  --sand:       #F4EFE7;   /* warm light ground: order section */
+  --sand-line:  #E3D9C9;
   --white:      #FFFFFF;
   --r:          12px;
   --sh:         0 4px 24px rgba(14,71,161,0.08);
@@ -184,4 +247,4 @@ Baseline obligations under Israeli consumer-protection and e-commerce law (חו�
 - **Marketing opt-in checkboxes:** any checkbox for newsletter/SMS/marketing consent must default to **unchecked**. Never pre-check a marketing opt-in on behalf of the user — under חוק הספאם, consent must be an affirmative, un-coerced action.
 - **Currency display:** all prices are shown in New Israeli Shekels using the `₪` symbol (not `ILS`, not `NIS`, not a bare number) — consistent with how pricing already appears across `index.html` (e.g. `₪390`).
 
-**Current gap (as of this branch):** `index.html`'s `<footer>` does not yet contain accessibility/terms/privacy/cancellation links, and the site has no marketing opt-in checkbox at all. Implementing those pages/links is tracked as follow-up work, not covered by this document alone — this section defines the standard that work must meet when it lands.
+**Status:** every page's footer links to the terms, shipping, cancellation/returns, privacy and accessibility pages and shows the business details. The site has no marketing opt-in checkbox; if one is added it must default to unchecked.
