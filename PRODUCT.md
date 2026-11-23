@@ -14,11 +14,11 @@ Everyone, not just surfers. Typical buyers are people who want to:
 - do rehab or physical recovery work;
 - and own fitness equipment that looks good enough to hang on the wall instead of hiding it in a cupboard.
 
-They browse on a phone in Hebrew, choose a design that suits their home, and order through WhatsApp.
+They browse on a phone in Hebrew, choose a design that suits their home, and order through the on-site order form.
 
 ## Product Purpose
 
-KYDO sells **FlowBoard**, a wooden balance board that comes with a cork roller and a wooden wall mount. People train on it, and when they're done the board goes on the wall as an original piece of art. Success means a visitor picks a design and starts a WhatsApp order.
+KYDO sells **FlowBoard**, a wooden balance board that comes with a cork roller and a wooden wall mount. People train on it, and when they're done the board goes on the wall as an original piece of art. Success means a visitor picks a design and completes an order.
 
 ## Positioning
 
@@ -26,7 +26,7 @@ Two products, one price: real training equipment that is also decor. Because of 
 
 ## Operating Context
 
-- **Ordering:** through WhatsApp (`wa.me` link with a pre-filled message, number in `index.html`). The site promises "we'll get back to you within an hour · delivery across Israel".
+- **Ordering:** through the on-site order form (`#order-form` in `index.html`): model, delivery or pickup, customer details, terms consent. Order details go to the order inbox via FormSubmit (or Web3Forms); payment links per model are set in `config/payment.js`. With no link set, the customer sees an order confirmation and a representative sends a payment link.
 - **Use:** at home: put the roller under the board, train, then hang it on the wall mount.
 - **Shipping:** free home delivery anywhere in Israel, included in the ₪329; up to 7 business days from order confirmation; free self-pickup in Tel Aviv-Yafo arranged on WhatsApp. Full policy in `shipping.html`.
 - **Business identity (footer, every page):** KYDO, operated by Ori Gat (עוסק פטור), Tel Aviv-Yafo; phone/WhatsApp 052-5933432.
@@ -61,7 +61,7 @@ Two products, one price: real training equipment that is also decor. Because of 
 2. **For everyone.** Core, posture, fitness, rehab and home decor. Never frame the product as surfers-only.
 3. **One honest price.** ₪329 for every model, no fake discounts or artificial urgency.
 4. **Real proof only.** Reviews and specs come from the user, never invented.
-5. **Short path to WhatsApp.** From choosing a design to sending the message, with as little friction as possible.
+5. **Short path to checkout.** From choosing a design to paying, with as little friction as possible.
 
 ## Accessibility & Inclusion
 

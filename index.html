@@ -84,6 +84,10 @@
       --accent-hov:   #0A3480;
       --accent-lt:    #2D70E8;   /* לסקשנים כהים */
       --border:       #B4D4E4;
+      --field-border: #7A93AB;   /* form-control borders: 3:1 on white */
+      --error:        #B42318;   /* validation messages */
+      --sand:         #F4EFE7;   /* warm light ground: order section, echoes the natural wood */
+      --sand-line:    #E3D9C9;
       --white:        #FFFFFF;
       --r:            12px;
       --sh:           0 4px 24px rgba(14,71,161,0.08);
@@ -808,74 +812,255 @@
        CTA
     =========================================== */
     #cta {
-      background: var(--dark);
-      color: var(--white);
-      text-align: center;
-      padding: 7rem 0;
-      border-top: 1px solid var(--border);
+      background: var(--sand);
+      color: var(--text);
+      padding: 6rem 0;
+      border-top: 1px solid var(--sand-line);
+      scroll-margin-top: 64px;
     }
     #cta h2 {
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 900;
       line-height: 1.13;
       letter-spacing: -0.025em;
-      margin-bottom: 1rem;
-      color: var(--white);
+      margin-bottom: 0.75rem;
+      color: var(--text);
+      text-align: center;
     }
     #cta > .container > p {
-      color: rgba(255,255,255,0.75);
-      font-size: 1.05rem;
-      margin-bottom: 2.5rem;
-      max-width: 460px;
-      margin-inline: auto;
+      color: var(--muted);
+      font-size: 1.0625rem;
+      margin: 0 auto 2.5rem;
+      max-width: 520px;
+      text-align: center;
     }
 
-    .cta-designs {
+    /* Order card (form + confirmation) */
+    .order-card {
+      background: var(--card);
+      color: var(--text);
+      border-radius: 16px;
+      border: 1px solid var(--sand-line);
+      box-shadow: 0 1px 2px rgba(12,28,48,0.04), 0 12px 40px rgba(12,28,48,0.08);
+      text-align: right;
+      scroll-margin-top: 88px;
+    }
+    #order-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 2.5rem;
+      padding: 2.5rem;
+    }
+    .order-fields { display: flex; flex-direction: column; gap: 2rem; min-width: 0; }
+    .order-step { border: 0; padding: 0; margin: 0; min-width: 0; }
+    .order-step legend {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+      padding: 0;
+    }
+
+    /* Model + delivery choices: native radios, visually hidden, card is the target */
+    .model-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+    .model-option, .delivery-option {
+      position: relative;
       display: flex;
-      justify-content: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    .cta-chip {
-      background: rgba(255,255,255,0.06);
-      border: 1.5px solid rgba(255,255,255,0.14);
-      color: rgba(255,255,255,0.68);
-      padding: 0.58rem 1.4rem;
-      border-radius: 99px;
       cursor: pointer;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      font-family: 'Heebo', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: all 0.22s;
-    }
-    .cta-chip:hover, .cta-chip.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--white);
-    }
-
-    .cta-actions { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-    .cta-fine { font-size: 0.875rem; color: rgba(255,255,255,0.75); }
-    .cta-fine a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s ease; }
-    .cta-fine a:hover, .cta-fine a:focus-visible { color: var(--accent-lt); }
-
-    .payment-notice {
-      margin-top: 2.8rem;
-      padding: 1.1rem 1.8rem;
-      border: 1px dashed rgba(255,255,255,0.14);
+      border: 1.5px solid var(--field-border);
       border-radius: var(--r);
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.75);
-      max-width: 480px;
-      margin-inline: auto;
-      line-height: 1.6;
+      background: var(--card);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    .model-option {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 0.5rem 0.875rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      text-align: center;
+    }
+    .model-option img {
+      width: 100%;
+      max-width: 112px;
+      aspect-ratio: 1;
+      height: auto;
+      object-fit: contain;
+      object-position: center center;
+    }
+    .model-option input, .delivery-option input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      margin: 0;
+    }
+    .model-option:hover, .delivery-option:hover { border-color: var(--accent); }
+    .model-option:has(input:checked), .delivery-option:has(input:checked) {
+      border-color: var(--accent);
+      background: var(--card-2);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .model-option:has(input:focus-visible), .delivery-option:has(input:focus-visible),
+    .check-label:has(input:focus-visible) {
+      outline: 2.5px solid var(--accent);
+      outline-offset: 3px;
+    }
+    /* check mark on the chosen option: not colour alone */
+    .model-option::after, .delivery-option::before {
+      content: "";
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1.5px solid var(--field-border);
+      background: var(--card) center / 12px no-repeat;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .model-option::after { position: absolute; top: 0.5rem; inset-inline-start: 0.5rem; }
+    .model-option:has(input:checked)::after, .delivery-option:has(input:checked)::before {
+      border-color: var(--accent);
+      background-color: var(--accent);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+    }
+
+    .delivery-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .delivery-option { align-items: flex-start; gap: 0.75rem; padding: 1rem; min-height: 44px; }
+    .delivery-text { display: flex; flex-direction: column; gap: 0.25rem; line-height: 1.4; }
+    .delivery-text strong { font-size: 1rem; font-weight: 700; }
+    .delivery-text span { font-size: 0.875rem; color: var(--muted); }
+
+    /* Text fields */
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1rem; margin-top: 1.25rem; }
+    .field-grid[hidden] { display: none; }
+    .order-step:last-child .field-grid { margin-top: 0; }
+    .field { display: flex; flex-direction: column; gap: 0.375rem; min-width: 0; }
+    .field-wide { grid-column: 1 / -1; }
+    .field label { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+    .req { color: var(--error); }
+    .optional { font-weight: 400; color: var(--muted); font-size: 0.875rem; }
+    .field input, .field textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 0.75rem 0.875rem;
+      font: inherit;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--card);
+      border: 1.5px solid var(--field-border);
+      border-radius: 8px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+    .field input[dir="ltr"] { text-align: right; }
+    .field input::placeholder { color: var(--muted); opacity: 0.8; }
+    .field input:hover, .field textarea:hover { border-color: var(--muted); }
+    .field input:focus-visible, .field textarea:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(14,71,161,0.25);
+      border-radius: 8px;
+    }
+    .field input[aria-invalid="true"] { border-color: var(--error); }
+    .field-hint { font-size: 0.8125rem; color: var(--muted); }
+    .field-error { font-size: 0.875rem; font-weight: 600; color: var(--error); }
+    .field-error:empty { display: none; }
+
+    /* Side column: summary + consent + submit */
+    .order-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-self: start;
+      position: sticky;
+      top: 88px;
+    }
+    .order-summary {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.25rem;
+    }
+    .order-summary h3 { font-size: 1.125rem; font-weight: 800; margin-bottom: 1rem; }
+    .summary-item { display: flex; gap: 0.875rem; align-items: center; margin-bottom: 1rem; }
+    .summary-item img {
+      width: 64px; height: 64px; flex-shrink: 0;
+      object-fit: contain; object-position: center center;
+      background: var(--card); border-radius: 8px; border: 1px solid var(--border);
+    }
+    .summary-name { font-weight: 700; font-size: 1rem; }
+    .summary-sub { font-size: 0.8125rem; color: var(--muted); line-height: 1.4; margin-top: 0.125rem; }
+    .summary-rows { margin: 0; }
+    .summary-rows > div {
+      display: flex; justify-content: space-between; gap: 1rem;
+      padding-block: 0.5rem; font-size: 0.9375rem;
+      border-top: 1px solid var(--border);
+    }
+    .summary-rows dt { color: var(--muted); }
+    .summary-rows dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .summary-rows .summary-total dt { color: var(--text); font-weight: 800; }
+    .summary-rows .summary-total dd { color: var(--accent); font-weight: 900; font-size: 1.25rem; }
+
+    .check-label {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      font-size: 0.9375rem; line-height: 1.5; cursor: pointer; border-radius: 4px;
+    }
+    .check-label input {
+      width: 22px; height: 22px; flex-shrink: 0; margin: 0.0625rem 0 0;
+      accent-color: var(--accent); cursor: pointer;
+    }
+    .check-label a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+    .check-label a:hover { color: var(--accent-hov); }
+    .field-check .field-error { margin-top: 0.375rem; padding-inline-start: 2.125rem; }
+
+    .order-submit { width: 100%; justify-content: center; white-space: normal; line-height: 1.3; padding-inline: 1.25rem; }
+    .nowrap { white-space: nowrap; }
+    #order-form[hidden], .order-confirm[hidden] { display: none; }
+    .order-submit[aria-busy="true"] { opacity: 0.75; cursor: progress; }
+    .order-secure { font-size: 0.8125rem; color: var(--muted); line-height: 1.5; text-align: center; margin-top: -0.5rem; }
+    .form-status { font-size: 0.9375rem; font-weight: 600; color: var(--error); text-align: center; }
+    .form-status:empty { display: none; }
+
+    /* Confirmation */
+    .order-confirm { max-width: 640px; margin-inline: auto; padding: 2.5rem; text-align: center; }
+    .order-confirm:focus { outline: none; }
+    .confirm-icon { width: 48px; height: 48px; color: var(--accent); margin: 0 auto 0.75rem; display: block; }
+    .order-confirm h3 { font-size: 1.75rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1.2; }
+    .confirm-id { margin-top: 0.5rem; color: var(--muted); font-size: 0.9375rem; }
+    .confirm-id bdi { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
+    .confirm-details {
+      margin: 1.5rem 0; text-align: right;
+      background: var(--card-2); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 0.5rem 1.25rem;
+    }
+    .confirm-details > div {
+      display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.625rem;
+      font-size: 0.9375rem; border-top: 1px solid var(--border);
+    }
+    .confirm-details > div:first-child { border-top: 0; }
+    .confirm-details dt { color: var(--muted); flex-shrink: 0; }
+    .confirm-details dd { margin: 0; font-weight: 600; text-align: left; overflow-wrap: anywhere; }
+    .confirm-next p { font-size: 1rem; line-height: 1.6; color: var(--text); }
+    .confirm-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; }
+    .btn-ghost { background: transparent; color: var(--accent); border-color: var(--accent); }
+    .btn-ghost:hover { background: var(--card-2); transform: translateY(-2px); }
+
+    @media (max-width: 899px) {
+      #order-form { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; }
+      .order-side { position: static; }
+    }
+    @media (max-width: 479px) {
+      #order-form { padding: 1.25rem 1rem; }
+      .order-card { border-radius: var(--r); }
+      .model-options { gap: 0.5rem; }
+      .model-option { font-size: 0.875rem; padding: 0.625rem 0.25rem 0.75rem; }
+      .delivery-options, .field-grid { grid-template-columns: 1fr; }
+      .order-confirm { padding: 1.75rem 1.25rem; }
+      .confirm-details > div { flex-direction: column; gap: 0.125rem; }
+      .confirm-details dd { text-align: right; }
+      .confirm-actions .btn { width: 100%; justify-content: center; }
+      .order-submit { font-size: 1rem; padding-inline: 0.75rem; gap: 0.375rem; }
     }
 
     /* ===========================================
@@ -1162,7 +1347,7 @@
       .gallery-header p { font-size: 1rem; line-height: 1.55; }
       .design-tagline { font-size: 1rem; line-height: 1.5; }
       .box-info p { font-size: 1rem; line-height: 1.55; }
-      #cta > .container > p { font-size: 1rem; line-height: 1.55; }
+      #cta > .container > p { font-size: 1rem; line-height: 1.55; margin-bottom: 1.75rem; }
       .story-text p { font-size: 1rem; line-height: 1.6; }
       .faq-item summary { padding: 1rem 1.25rem; font-size: 1rem; }
       .faq-item p { padding: 0 1.25rem 1.1rem; font-size: 1rem; line-height: 1.6; }
@@ -1493,7 +1678,7 @@
               <span class="price-now">₪329</span>
               <span class="price-note">כולל משלוח עד הבית</span>
             </div>
-            <a href="#cta" class="btn btn-primary" data-design="לוטוס לבן">בחרו עיצוב זה</a>
+            <a href="#order-form" class="btn btn-primary" data-model="white-lotus" aria-label="הזמינו עכשיו את דגם לוטוס לבן">הזמינו עכשיו</a>
           </div>
         </div>
       </div>
@@ -1510,7 +1695,7 @@
               <span class="price-now">₪329</span>
               <span class="price-note">כולל משלוח עד הבית</span>
             </div>
-            <a href="#cta" class="btn btn-primary" data-design="הגל הגדול">בחרו עיצוב זה</a>
+            <a href="#order-form" class="btn btn-primary" data-model="great-wave" aria-label="הזמינו עכשיו את דגם הגל הגדול">הזמינו עכשיו</a>
           </div>
         </div>
       </div>
@@ -1527,7 +1712,7 @@
               <span class="price-now">₪329</span>
               <span class="price-note">כולל משלוח עד הבית</span>
             </div>
-            <a href="#cta" class="btn btn-primary" data-design="לוטוס ורוד">בחרו עיצוב זה</a>
+            <a href="#order-form" class="btn btn-primary" data-model="pink-lotus" aria-label="הזמינו עכשיו את דגם לוטוס ורוד">הזמינו עכשיו</a>
           </div>
         </div>
       </div>
@@ -1775,31 +1960,145 @@
 <!-- ============================================================
      CTA
 ============================================================ -->
-<section id="cta">
+<section id="cta" aria-labelledby="order-title">
   <div class="container">
-    <h2>מוכנים לשדרג<br>את האימון והבית?</h2>
-    <p>בחרו את העיצוב שמדבר אליכם, ואנחנו נדאג לכל השאר.</p>
-    <div class="cta-designs">
-      <button class="cta-chip" data-design="לוטוס לבן"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg> לוטוס לבן</button>
-      <button class="cta-chip" data-design="הגל הגדול"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 7.5C5.25 6 6.75 4.5 9 4.5s3.75 1.5 5.25 3 3 3 5.25 3M3.75 13.5c1.5-1.5 3-3 5.25-3s3.75 1.5 5.25 3 3 3 5.25 3"/></svg> הגל הגדול</button>
-      <button class="cta-chip active" data-design="לוטוס ורוד"><svg class="icon icon-sm" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg> לוטוס ורוד</button>
-    </div>
-    <div class="cta-actions">
-      <!--
-        TODO: החליפו כפתור זה בקישור Stripe / Shopify לאחר שתחליטו על מערכת התשלום.
-      -->
-      <a href="https://wa.me/972525933432?text=היי%2C+אני+מעוניין+להזמין+את+ה-FlowBoard+של+KYDO"
-         id="whatsapp-btn"
-         class="btn btn-white btn-lg"
-         target="_blank" rel="noopener">
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
-        להזמנה בוואטסאפ
-      </a>
-      <p class="cta-fine">נחזור אליכם תוך שעה · משלוח חינם עד הבית בכל הארץ, עד 7 ימי עסקים · איסוף עצמי מתל אביב-יפו · <a href="shipping.html">פרטים מלאים</a></p>
-    </div>
-    <div class="payment-notice">
-      <svg class="icon icon-sm" aria-hidden="true" style="vertical-align:middle;margin-inline-end:0.4rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>מערכת רכישה מאובטחת בדרך.
-      בינתיים ניתן להזמין ישירות בוואטסאפ וקבלת אישור תוך שעה.
+    <h2 id="order-title">הזמנת <bdi>FlowBoard</bdi></h2>
+    <p>329 ₪ לכל דגם, כולל משלוח חינם עד הבית או איסוף עצמי מתל אביב-יפו.</p>
+
+    <form id="order-form" class="order-card" novalidate>
+      <div class="order-fields">
+
+        <fieldset class="order-step">
+          <legend>1. בחירת דגם</legend>
+          <div class="model-options">
+            <label class="model-option">
+              <input type="radio" name="model" value="white-lotus" data-name="לוטוס לבן" data-img="images/white-lotus.webp" checked />
+              <img src="images/white-lotus.webp" alt="" width="874" height="880" loading="lazy" decoding="async" />
+              <span>לוטוס לבן</span>
+            </label>
+            <label class="model-option">
+              <input type="radio" name="model" value="great-wave" data-name="הגל הגדול" data-img="images/wave.webp" />
+              <img src="images/wave.webp" alt="" width="874" height="880" loading="lazy" decoding="async" />
+              <span>הגל הגדול</span>
+            </label>
+            <label class="model-option">
+              <input type="radio" name="model" value="pink-lotus" data-name="לוטוס ורוד" data-img="images/pink-lotus.webp" />
+              <img src="images/pink-lotus.webp" alt="" width="874" height="880" loading="lazy" decoding="async" />
+              <span>לוטוס ורוד</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="order-step">
+          <legend>2. שיטת קבלה</legend>
+          <div class="delivery-options">
+            <label class="delivery-option">
+              <input type="radio" name="delivery" value="shipping" checked />
+              <span class="delivery-text">
+                <strong>משלוח חינם עד הבית</strong>
+                <span>עד 7 ימי עסקים, לכל הארץ</span>
+              </span>
+            </label>
+            <label class="delivery-option">
+              <input type="radio" name="delivery" value="pickup" />
+              <span class="delivery-text">
+                <strong>איסוף עצמי מתל אביב-יפו</strong>
+                <span>חינם, בתיאום מראש בוואטסאפ</span>
+              </span>
+            </label>
+          </div>
+
+          <div id="address-fields" class="field-grid">
+            <div class="field">
+              <label for="f-city">עיר <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-city" name="city" type="text" autocomplete="address-level2" required aria-describedby="e-city" />
+              <p class="field-error" id="e-city"></p>
+            </div>
+            <div class="field">
+              <label for="f-street">רחוב ומספר בית <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-street" name="street" type="text" autocomplete="address-line1" required aria-describedby="e-street" />
+              <p class="field-error" id="e-street"></p>
+            </div>
+            <div class="field">
+              <label for="f-apt">דירה / קומה <span class="optional">(לא חובה)</span></label>
+              <input id="f-apt" name="apartment" type="text" autocomplete="address-line2" />
+            </div>
+            <div class="field field-wide">
+              <label for="f-notes">הערות לשליח <span class="optional">(לא חובה)</span></label>
+              <textarea id="f-notes" name="notes" rows="2"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="order-step">
+          <legend>3. פרטי המזמין</legend>
+          <div class="field-grid">
+            <div class="field field-wide">
+              <label for="f-name">שם מלא <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-name" name="full_name" type="text" autocomplete="name" required aria-describedby="e-name" />
+              <p class="field-error" id="e-name"></p>
+            </div>
+            <div class="field">
+              <label for="f-phone">טלפון נייד <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="050-0000000" required aria-describedby="e-phone" />
+              <p class="field-error" id="e-phone"></p>
+            </div>
+            <div class="field">
+              <label for="f-email">אימייל <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" required aria-describedby="e-email-hint e-email" />
+              <p class="field-hint" id="e-email-hint">לשם נשלח אישור ההזמנה והקבלה.</p>
+              <p class="field-error" id="e-email"></p>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="order-side">
+        <div class="order-summary" aria-live="polite">
+          <h3>סיכום הזמנה</h3>
+          <div class="summary-item">
+            <img id="sum-img" src="images/white-lotus.webp" alt="" width="874" height="880" loading="lazy" decoding="async" />
+            <div>
+              <p class="summary-name"><bdi>FlowBoard</bdi> · <span id="sum-model">לוטוס לבן</span></p>
+              <p class="summary-sub">בורד, גליל שעם, מתלה קיר וערכת התקנה</p>
+            </div>
+          </div>
+          <dl class="summary-rows">
+            <div><dt>מחיר</dt><dd>329 ₪</dd></div>
+            <div><dt id="sum-delivery">משלוח עד הבית</dt><dd>חינם</dd></div>
+            <div class="summary-total"><dt>סה״כ לתשלום</dt><dd>329 ₪</dd></div>
+          </dl>
+        </div>
+
+        <div class="field-check">
+          <label class="check-label">
+            <input type="checkbox" name="terms" id="f-terms" required aria-describedby="e-terms" />
+            <span>קראתי ואני מאשר/ת את <a href="terms.html" target="_blank" rel="noopener">תקנון האתר</a> ואת <a href="cancellation.html" target="_blank" rel="noopener">מדיניות הביטולים</a> <a href="shipping.html" target="_blank" rel="noopener">והמשלוחים</a></span>
+          </label>
+          <p class="field-error" id="e-terms"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg order-submit">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+          <span class="order-submit-label">המשך לתשלום מאובטח — <span class="nowrap">329 ₪</span></span>
+        </button>
+        <p class="order-secure">התשלום מתבצע בדף סליקה מאובטח בתקן <bdi>PCI-DSS</bdi> באמצעות אשראי / <bdi>Bit</bdi> / <bdi>Apple Pay</bdi></p>
+        <p class="form-status" id="form-status" role="alert"></p>
+      </div>
+    </form>
+
+    <div id="order-confirm" class="order-card order-confirm" tabindex="-1" hidden>
+      <svg class="confirm-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <h3 id="confirm-title">תודה! ההזמנה התקבלה</h3>
+      <p class="confirm-id">מספר הזמנה: <bdi id="confirm-id"></bdi></p>
+      <dl id="confirm-details" class="confirm-details"></dl>
+      <div class="confirm-next">
+        <p id="confirm-message">נציג יחזור אליכם בהקדם, בדרך כלל תוך שעה, עם קישור לתשלום מאובטח (אשראי / <bdi>Bit</bdi> / <bdi>Apple Pay</bdi>). מיד לאחר התשלום תישלח קבלה לאימייל שלכם.</p>
+      </div>
+      <div class="confirm-actions">
+        <a id="confirm-wa" class="btn btn-primary" href="#" target="_blank" rel="noopener">להשלמת התשלום מול נציג</a>
+        <a id="confirm-mail" class="btn btn-ghost" href="#" hidden>שליחת ההזמנה בדוא״ל</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1834,6 +2133,7 @@
 
 </div>
 
+<script src="config/payment.js"></script>
 <script>
   // ── Reduced motion: don't force autoplaying video on users who asked for less motion ──
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1917,25 +2217,232 @@
     });
   });
 
-  // ── CTA chip selection ────────────────────────────────────
-  const chips       = document.querySelectorAll('.cta-chip');
-  const waBtn       = document.getElementById('whatsapp-btn');
-  const waNumber    = '972525933432';
-  const waGenericMsg = 'היי, אני מעוניין להזמין את ה-FlowBoard של KYDO';
-  const waBase      = `https://wa.me/${waNumber}?text=`;
+  // ── Order form: model choice, delivery, validation, submit ─────────────
+  // Payment links and the order inbox live in config/payment.js.
+  (function () {
+    const form = document.getElementById('order-form');
+    if (!form) return;
+    const cfg = Object.assign(
+      { price: 329, paymentLinks: {}, orderEmail: 'buyflowboard@gmail.com', web3formsKey: '', whatsappNumber: '972525933432' },
+      window.KYDO_CONFIG || {}
+    );
+    const $ = (sel) => form.querySelector(sel);
+    const addressBox = document.getElementById('address-fields');
+    const statusEl   = document.getElementById('form-status');
+    const submitBtn  = form.querySelector('.order-submit');
+    const confirmBox = document.getElementById('order-confirm');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  waBtn.href = waBase + encodeURIComponent(waGenericMsg);
+    // ── Selection → summary ──
+    function selectedModel() { return form.querySelector('input[name="model"]:checked'); }
+    function isPickup() { return form.querySelector('input[name="delivery"]:checked').value === 'pickup'; }
 
-  function selectDesign(name) {
-    chips.forEach(c => c.classList.toggle('active', c.dataset.design === name));
-    waBtn.href = waBase + encodeURIComponent(`${waGenericMsg} בעיצוב ${name}`);
-  }
+    function refreshSummary() {
+      const m = selectedModel();
+      document.getElementById('sum-model').textContent = m.dataset.name;
+      document.getElementById('sum-img').src = m.dataset.img;
+      document.getElementById('sum-delivery').textContent = isPickup() ? 'איסוף עצמי מתל אביב-יפו' : 'משלוח עד הבית';
+    }
 
-  chips.forEach(chip => chip.addEventListener('click', () => selectDesign(chip.dataset.design)));
+    function refreshDelivery() {
+      const pickup = isPickup();
+      addressBox.hidden = pickup;
+      addressBox.querySelectorAll('input, textarea').forEach(el => { el.disabled = pickup; });
+      if (pickup) addressBox.querySelectorAll('.field-error').forEach(e => { e.textContent = ''; });
+      refreshSummary();
+    }
 
-  document.querySelectorAll('.design-card .btn[data-design]').forEach(btn => {
-    btn.addEventListener('click', () => selectDesign(btn.dataset.design));
-  });
+    form.querySelectorAll('input[name="model"]').forEach(r => r.addEventListener('change', refreshSummary));
+    form.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', refreshDelivery));
+
+    // "הזמינו עכשיו" on a product card → preselect that model and jump to the form
+    document.querySelectorAll('[data-model]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const radio = form.querySelector(`input[name="model"][value="${btn.dataset.model}"]`);
+        if (radio) { radio.checked = true; refreshSummary(); }
+        form.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        if (radio) radio.focus({ preventScroll: true });
+      });
+    });
+
+    // ── Validation (Hebrew messages) ──
+    const digits = (v) => v.replace(/\D/g, '');
+    function normalisePhone(v) {
+      let d = digits(v);
+      if (d.startsWith('972')) d = '0' + d.slice(3);
+      return d;
+    }
+    const rules = {
+      city:      (v) => v.trim().length >= 2 ? '' : 'נא להזין עיר.',
+      street:    (v) => !v.trim() ? 'נא להזין רחוב ומספר בית.'
+                       : /\d/.test(v) ? '' : 'נא להוסיף מספר בית (לדוגמה: הרצל 12).',
+      full_name: (v) => !v.trim() ? 'נא להזין שם מלא.'
+                       : v.trim().split(/\s+/).length >= 2 ? '' : 'נא להזין שם פרטי ושם משפחה.',
+      phone:     (v) => !v.trim() ? 'נא להזין מספר טלפון נייד.'
+                       : /^05\d{8}$/.test(normalisePhone(v)) ? '' : 'מספר הנייד לא תקין. יש להזין 10 ספרות שמתחילות ב-05.',
+      email:     (v) => !v.trim() ? 'נא להזין כתובת אימייל.'
+                       : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'כתובת האימייל לא תקינה (לדוגמה: name@gmail.com).',
+    };
+    const errorIds = { city: 'e-city', street: 'e-street', full_name: 'e-name', phone: 'e-phone', email: 'e-email' };
+
+    function checkField(input) {
+      const rule = rules[input.name];
+      if (!rule || input.disabled) return true;
+      const msg = rule(input.value);
+      document.getElementById(errorIds[input.name]).textContent = msg;
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      return !msg;
+    }
+    function checkTerms() {
+      const box = document.getElementById('f-terms');
+      const msg = box.checked ? '' : 'יש לאשר את התקנון ואת מדיניות הביטולים והמשלוחים כדי להמשיך.';
+      document.getElementById('e-terms').textContent = msg;
+      box.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      return !msg;
+    }
+
+    let attempted = false;
+    Object.keys(rules).forEach(name => {
+      const input = form.elements[name];
+      input.addEventListener('blur', () => { if (attempted || input.value) checkField(input); });
+      input.addEventListener('input', () => { if (input.getAttribute('aria-invalid') === 'true') checkField(input); });
+    });
+    document.getElementById('f-terms').addEventListener('change', () => { if (attempted) checkTerms(); });
+
+    // ── Order payload ──
+    function orderId() {
+      const d = new Date();
+      const p = (n) => String(n).padStart(2, '0');
+      return `KYDO-${String(d.getFullYear()).slice(2)}${p(d.getMonth() + 1)}${p(d.getDate())}-${Math.floor(1000 + Math.random() * 9000)}`;
+    }
+    function collect() {
+      const f = form.elements;
+      const pickup = isPickup();
+      const address = pickup ? '' : [f.street.value.trim(), f.apartment.value.trim(), f.city.value.trim()].filter(Boolean).join(', ');
+      return {
+        id: orderId(),
+        modelId: selectedModel().value,
+        model: selectedModel().dataset.name,
+        delivery: pickup ? 'איסוף עצמי מתל אביב-יפו (בתיאום מראש)' : 'משלוח חינם עד הבית (עד 7 ימי עסקים)',
+        address,
+        notes: pickup ? '' : f.notes.value.trim(),
+        name: f.full_name.value.trim(),
+        phone: normalisePhone(f.phone.value).replace(/^(\d{3})(\d{7})$/, '$1-$2'),
+        email: f.email.value.trim(),
+        total: `${cfg.price} ₪`,
+      };
+    }
+    function rows(o) {
+      return [
+        ['מספר הזמנה', o.id],
+        ['דגם', `FlowBoard · ${o.model}`],
+        ['שיטת קבלה', o.delivery],
+        ...(o.address ? [['כתובת', o.address]] : []),
+        ...(o.notes ? [['הערות לשליח', o.notes]] : []),
+        ['שם', o.name],
+        ['טלפון', o.phone],
+        ['אימייל', o.email],
+        ['סה״כ לתשלום', o.total],
+      ];
+    }
+    const asText = (o) => rows(o).map(([k, v]) => `${k}: ${v}`).join('\n');
+
+    async function sendOrder(o, paymentLink) {
+      const fields = Object.fromEntries(rows(o));
+      fields['קישור תשלום'] = paymentLink || 'טרם הוגדר: יש לשלוח ללקוח קישור לתשלום';
+      const subject = `הזמנה חדשה ${o.id}: FlowBoard ${o.model}`;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 10000);
+      try {
+        let res;
+        if (cfg.web3formsKey) {
+          res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST', signal: ctrl.signal,
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ access_key: cfg.web3formsKey, subject, from_name: 'KYDO אתר', replyto: o.email, ...fields }),
+          });
+        } else {
+          res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(cfg.orderEmail)}`, {
+            method: 'POST', signal: ctrl.signal,
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ _subject: subject, _template: 'table', _captcha: 'false', _replyto: o.email, ...fields }),
+          });
+        }
+        const data = await res.json().catch(() => ({}));
+        return res.ok && String(data.success) === 'true';
+      } catch (err) {
+        return false;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function showConfirmation(o, delivered) {
+      document.getElementById('confirm-id').textContent = o.id;
+      const dl = document.getElementById('confirm-details');
+      dl.replaceChildren(...rows(o).filter(([k]) => k !== 'מספר הזמנה').map(([k, v]) => {
+        const row = document.createElement('div');
+        const dt = document.createElement('dt'); dt.textContent = k;
+        const dd = document.createElement('dd'); dd.textContent = v;
+        row.append(dt, dd);
+        return row;
+      }));
+      const text = `היי, ביצעתי הזמנה באתר KYDO ואשמח להשלים את התשלום.\n\n${asText(o)}`;
+      const wa = document.getElementById('confirm-wa');
+      wa.href = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(text)}`;
+      const mail = document.getElementById('confirm-mail');
+      const msg = document.getElementById('confirm-message');
+      if (delivered) {
+        document.getElementById('confirm-title').textContent = `תודה ${o.name.split(/\s+/)[0]}! ההזמנה התקבלה`;
+        mail.hidden = true;
+      } else {
+        // The notification didn't go through: let the customer send it themselves so no order is lost.
+        document.getElementById('confirm-title').textContent = 'כמעט סיימנו: נשאר לשלוח לנו את ההזמנה';
+        msg.textContent = 'לא הצלחנו להעביר את פרטי ההזמנה באופן אוטומטי. שלחו לנו אותם בלחיצה אחת בוואטסאפ או בדוא״ל, ונציג יחזור אליכם עם קישור לתשלום מאובטח.';
+        wa.textContent = 'שליחת ההזמנה בוואטסאפ';
+        mail.href = `mailto:${cfg.orderEmail}?subject=${encodeURIComponent('הזמנה ' + o.id)}&body=${encodeURIComponent(asText(o))}`;
+        mail.hidden = false;
+      }
+      form.hidden = true;
+      confirmBox.hidden = false;
+      confirmBox.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      confirmBox.focus({ preventScroll: true });
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      attempted = true;
+      statusEl.textContent = '';
+      const fieldsOk = Object.keys(rules).map(n => checkField(form.elements[n])).every(Boolean);
+      const termsOk = checkTerms();
+      if (!fieldsOk || !termsOk) {
+        const first = form.querySelector('[aria-invalid="true"]:not(:disabled)');
+        if (first) first.focus();
+        return;
+      }
+
+      const order = collect();
+      const link = (cfg.paymentLinks[order.modelId] || '').trim();
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.disabled = true;
+      const label = submitBtn.querySelector('.order-submit-label');
+      const original = label.innerHTML;
+      label.textContent = link ? 'מעבירים לדף התשלום המאובטח…' : 'שולחים את ההזמנה…';
+
+      const delivered = await sendOrder(order, link);
+      if (link) {
+        window.location.href = link;
+        return;
+      }
+      submitBtn.removeAttribute('aria-busy');
+      submitBtn.disabled = false;
+      label.innerHTML = original;
+      showConfirmation(order, delivered);
+    });
+
+    refreshDelivery();
+  })();
 
   // ── Scroll-spy nav links ──────────────────────────────────
   const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
