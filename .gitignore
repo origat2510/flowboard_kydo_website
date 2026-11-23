@@ -8,3 +8,12 @@
 
 # Claude skills (local tooling, not part of the project)
 claud skills/
+
+# Claude Code — local settings (per-user, never commit)
+.claude/settings.local.json
+
+# Claude Code — Taste Skill (39MB of assets; install locally, not tracked)
+.claude/skills/design-taste-frontend/
+
+# Impeccable engine binary (downloaded on first run)
+.claude/skills/impeccable/scripts/bin/
