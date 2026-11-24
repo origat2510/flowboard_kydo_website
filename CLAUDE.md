@@ -18,7 +18,7 @@ In practice: after any meaningful code or configuration change, update "Project 
 
 ## Project Status
 
-_Last updated: 2026-11-23._
+_Last updated: 2026-11-24._
 
 **Live site:** https://kydo.co.il, served by GitHub Pages from the root of `main` (repo `origat2510/flowboard_kydo_website`). `CNAME` at the repo root holds `kydo.co.il`; there is no build step and no `public/` folder. Never delete `CNAME`.
 
@@ -31,6 +31,8 @@ _Last updated: 2026-11-23._
 **Product and pricing:** FlowBoard by KYDO: a wooden balance board ("באלאנס בורד") with a cork roller and a wooden wall mount, in 3 designs: לוטוס לבן, הגל הגדול, לוטוס ורוד. **₪329 for every model**, flat, no sale framing. Includes **free home delivery anywhere in Israel, up to 7 business days**, or **free self-pickup from Tel Aviv-Yafo** arranged in advance on WhatsApp. Product truth, voice and evidence rules live in `PRODUCT.md`.
 
 **Pages:** `index.html` (all CSS and JS inline), `terms.html`, `shipping.html`, `cancellation.html` (returns and online cancellation form), `privacy.html`, `accessibility.html`. Canonical, `og:url` and share-image URLs are absolute on `https://kydo.co.il`.
+
+**grow payment-processor review:** 10 of 12 items passed; the last 2 were added to `terms.html` on 2026-11-24 with the wording grow asked for: **הגבלת גיל** (`#age-limit`, right after "כללי": 18+ with legal capacity, minors only with a parent or guardian's approval) and **אחריות המוצר והגבלת אחריות** (`#liability`, replacing the old short "אחריות" section, with h3 parts: השימוש במוצר, מידע ותכנים באתר, אחריות יצרן: 12-month manufacturer warranty, contact buyflowboard@gmail.com / 052-5933432). Keep that wording as is unless grow asks for a change.
 
 **Order form** (`#cta` section, `<form id="order-form">` in `index.html`):
 1. Model choice: radio cards (`name="model"`, values `white-lotus` / `great-wave` / `pink-lotus`); the side summary updates live. Each product card's "הזמינו עכשיו" button (`data-model`) preselects its model and scrolls to the form.
@@ -48,6 +50,7 @@ _Last updated: 2026-11-23._
 
 ## Next Steps
 
+- [ ] Tell grow the 2 missing terms items (age limit, product liability) are live on https://kydo.co.il/terms.html and ask for final approval.
 - [ ] Place one real test order on https://kydo.co.il and confirm it arrives through Web3Forms.
 - [ ] When the payment company (grow / PayPlus) approves, paste the three payment links into `config/payment.js` and push.
 - [ ] Have the return-shipping wording in `cancellation.html` checked against the law / the payment company's guidelines.
