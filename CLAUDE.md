@@ -34,6 +34,8 @@ _Last updated: 2026-11-24._
 
 **Copy and design polish (2026-11-24):** nav link to `#concept` reads "ה-FlowBoard" (desktop and mobile), nav CTAs read "להזמנה"; the KPI strip's "3 עיצובים" uses an inline lotus SVG; the gallery heading has no subtitle; spec table rows are "נשיאת משקל" and "הדפסת UV בחדות גבוהה, עמידה בפני שחיקה ודהייה". The logo PNG is dark brown on transparent, so every page's footer recolors it with `footer .logo img { height: 64px; filter: brightness(0) invert(0.93) sepia(0.22); }` (warm off-white); keep that rule on any new page.
 
+**Reviews ("מה אומרים עלינו", `#reviews`):** avatars are 64×64 circles (`.review-meta img`). `review-nir.webp` and `review-yonatan.webp` are 256px crops of just the profile circle in the customers' iPhone screenshots (`nir2.PNG` / `yona2.PNG`: circle centre 583,1125, radius ≈387 in the 1170×2532 originals; cropped at radius 375 so no blurred ring shows). `review-itay.webp` is a full-width square of `itay2.jpeg` (0,95 → 1206,1301) so the whole tube and board are visible. The source photos are not committed; they sit untracked in the main checkout's `images/`.
+
 **grow payment-processor review:** 10 of 12 items passed; the last 2 were added to `terms.html` on 2026-11-24 with the wording grow asked for: **הגבלת גיל** (`#age-limit`, right after "כללי": 18+ with legal capacity, minors only with a parent or guardian's approval) and **אחריות המוצר והגבלת אחריות** (`#liability`, replacing the old short "אחריות" section, with h3 parts: השימוש במוצר, מידע ותכנים באתר, אחריות יצרן: 12-month manufacturer warranty, contact buyflowboard@gmail.com / 052-5933432). Keep that wording as is unless grow asks for a change.
 
 **Order form** (`#cta` section, `<form id="order-form">` in `index.html`):
