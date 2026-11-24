@@ -28,9 +28,11 @@ _Last updated: 2026-11-24._
 - Phone / WhatsApp: 052-5933432
 - Email: buyflowboard@gmail.com
 
-**Product and pricing:** FlowBoard by KYDO: a wooden balance board ("באלאנס בורד") with a cork roller and a wooden wall mount, in 3 designs: לוטוס לבן, הגל הגדול, לוטוס ורוד. **₪329 for every model**, flat, no sale framing. Includes **free home delivery anywhere in Israel, up to 7 business days**, or **free self-pickup from Tel Aviv-Yafo** arranged in advance on WhatsApp. Product truth, voice and evidence rules live in `PRODUCT.md`.
+**Product and pricing:** FlowBoard by KYDO: a wooden balance board ("באלאנס בורד") made of **"עץ בירץ' (ליבנה) רב-שכבתי מבוקר"** (never "עץ לבוד") with a cork roller and a wooden wall mount, in 3 designs: לוטוס לבן, הגל הגדול, לוטוס ורוד. **₪329 for every model**, flat, no sale framing. Includes **free home delivery anywhere in Israel, up to 7 business days**, or **free self-pickup from Tel Aviv-Yafo** arranged in advance on WhatsApp. Product truth, voice and evidence rules live in `PRODUCT.md`.
 
 **Pages:** `index.html` (all CSS and JS inline), `terms.html`, `shipping.html`, `cancellation.html` (returns and online cancellation form), `privacy.html`, `accessibility.html`. Canonical, `og:url` and share-image URLs are absolute on `https://kydo.co.il`.
+
+**Copy and design polish (2026-11-24):** nav link to `#concept` reads "ה-FlowBoard" (desktop and mobile), nav CTAs read "להזמנה"; the KPI strip's "3 עיצובים" uses an inline lotus SVG; the gallery heading has no subtitle; spec table rows are "נשיאת משקל" and "הדפסת UV בחדות גבוהה, עמידה בפני שחיקה ודהייה". The logo PNG is dark brown on transparent, so every page's footer recolors it with `footer .logo img { height: 64px; filter: brightness(0) invert(0.93) sepia(0.22); }` (warm off-white); keep that rule on any new page.
 
 **grow payment-processor review:** 10 of 12 items passed; the last 2 were added to `terms.html` on 2026-11-24 with the wording grow asked for: **הגבלת גיל** (`#age-limit`, right after "כללי": 18+ with legal capacity, minors only with a parent or guardian's approval) and **אחריות המוצר והגבלת אחריות** (`#liability`, replacing the old short "אחריות" section, with h3 parts: השימוש במוצר, מידע ותכנים באתר, אחריות יצרן: 12-month manufacturer warranty, contact buyflowboard@gmail.com / 052-5933432). Keep that wording as is unless grow asks for a change.
 
